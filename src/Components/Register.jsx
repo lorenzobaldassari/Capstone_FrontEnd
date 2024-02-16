@@ -1,12 +1,13 @@
 import { useState } from "react"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
 import {Link} from "react-router-dom";
 
 const url="localhost3010"
 const registerUrl="/auth/register"
-const token="token"
+const token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTFlZDYyOS0xYmY1LTRiMWEtYjVkMi05YTc4MWY4NGZiZTciLCJpYXQiOjE3MDgwODU0MjUsImV4cCI6MTcwODY5MDIyNX0.Oroj961bXSqaSqE0ooJpP5bwpikQkfTpBKrDBO9eAaM";
+
 const Register=()=>{
 
     const [registerPayload,setRegisterPayload]= useState({
