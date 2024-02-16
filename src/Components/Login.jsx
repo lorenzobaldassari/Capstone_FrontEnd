@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,12 +11,12 @@ const token =
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [loginPayload, SetLoginPayload] = useState({
     email: "",
     password: "",
   });
 
+  const auth = useSelector((state) => state.login.auth);
   return (
     <>
       <Form

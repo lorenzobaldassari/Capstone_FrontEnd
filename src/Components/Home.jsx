@@ -7,16 +7,16 @@ const Home = () => {
       <Container fluid className="">
         <Row className="">
           <Col lg={2} className="d-none d-lg-block">
-            <div>
-              <p>ciao</p>
+            <div className="d-flex justify-content-center">
+              <p>colonna 1</p>
             </div>
           </Col>
           <Col xs={12} lg={8} className="p-0  ">
             <Post />
           </Col>
           <Col lg={2} className="d-none  d-lg-block">
-            <div>
-              <p>ciao</p>
+            <div className="d-flex justify-content-center">
+              <p>colonna 2</p>
             </div>
           </Col>
         </Row>

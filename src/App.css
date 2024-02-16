@@ -1,8 +1,13 @@
-#loginForm,#registerForm    {
-    height: 100vh;
+#loginForm,
+#registerForm {
+  height: 100vh;
 }
 
-#customBr1{
-    border-color: 2px black;
-    color: black;
+#customBr1 {
+  height: 2px;
+  background-color: black;
+}
+
+.transparent {
+  background-color: transparent !important;
 }

@@ -1,9 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 export const LOGIN = "LOGIN";
 export const GET_POSTS = "GET_POSTS";
 
 const url = "http://localhost:3010";
-const token = sessionStorage.getItem("token");
-
+// const token = sessionStorage.getItem("token
 export const loginAction = (body) => {
   return async (dispatch) => {
     try {
@@ -15,11 +16,10 @@ export const loginAction = (body) => {
         },
       });
       if (response.ok) {
+        dispatch({
+          type: LOGIN,
+        });
         let data = await response.json();
-        // dispatch({
-        //   type: LOGIN,
-        //   payload: data.token,
-        // });
         console.log("token1 " + data.token);
         sessionStorage.setItem("token", data.token);
         console.log(sessionStorage.getItem("token"));
@@ -32,9 +32,7 @@ export const loginAction = (body) => {
   };
 };
 
-
-
-export const getPosts = () => {
+export const getPosts = (token) => {
   return async (dispatch) => {
     try {
       let response = await fetch(url + "/posts", {
@@ -53,7 +51,4 @@ export const getPosts = () => {
       alert("errore nella fetch di posts " + error);
     }
   };
-  };
-  
-
- 
+};
