@@ -1,5 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import Post from "./Posts/Post";
+import CreatPostModal from "./Posts/CreatePostModal";
+import ModifyPostModal from "./Posts/ModifyPostModal";
 
 const Home = () => {
   return (
@@ -21,6 +23,7 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
+    
     </>
   );
 };

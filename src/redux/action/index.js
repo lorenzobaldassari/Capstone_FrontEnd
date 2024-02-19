@@ -22,7 +22,38 @@ export const loginAction = (body) => {
         let data = await response.json();
         console.log("token1 " + data.token);
         sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("uuid", data.uuid);
         console.log(sessionStorage.getItem("token"));
+        console.log(sessionStorage.getItem("uuid"));
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      alert("errore nella fetch di login " + error);
+    }
+  };
+};
+
+export const loginPaginaAction = (body) => {
+  return async (dispatch) => {
+    try {
+      let response = await fetch(url + "/auth/login/pagine", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      if (response.ok) {
+        dispatch({
+          type: LOGIN,
+        });
+        let data = await response.json();
+        console.log("token1 " + data.token);
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("uuid", data.uuid);
+        console.log(sessionStorage.getItem("token"));
+        console.log(sessionStorage.getItem("uuid"));
       } else {
         throw new Error();
       }

@@ -4,11 +4,9 @@ import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { loginAction } from "../redux/action";
-const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTFlZDYyOS0xYmY1LTRiMWEtYjVkMi05YTc4MWY4NGZiZTciLCJpYXQiOjE3MDgwODU0MjUsImV4cCI6MTcwODY5MDIyNX0.Oroj961bXSqaSqE0ooJpP5bwpikQkfTpBKrDBO9eAaM";
+import { loginPaginaAction } from "../redux/action";
 
-const Login = () => {
+const LoginPagina = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loginPayload, SetLoginPayload] = useState({
@@ -16,15 +14,16 @@ const Login = () => {
     password: "",
   });
 
+  const auth = useSelector((state) => state.login.auth);
   return (
     <>
-      <h1>Login Utente</h1>
+      <h1>Login Pagina</h1>
       <Form
         className="d-flex flex-column align-items-center justify-content-center"
         id="loginForm"
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(loginAction(loginPayload));
+          dispatch(loginPaginaAction(loginPayload));
           navigate("/wellcome");
         }}
       >
@@ -67,13 +66,6 @@ const Login = () => {
             Login
           </Button>
           <p>
-            hai una pagina?{" "}
-            <Link className="text-primary" to={"/paginaLogin"}>
-              {" "}
-              logga!
-            </Link>
-          </p>
-          <p>
             non sei registrato?{" "}
             <Link className="text-primary" to={"/register"}>
               {" "}
@@ -86,4 +78,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPagina;

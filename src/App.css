@@ -11,3 +11,19 @@
 .transparent {
   background-color: transparent !important;
 }
+
+.x {
+  position: absolute;
+  right: 60px;
+  top: 20px;
+  z-index: 50;
+}
+.dots {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 50;
+}
+.z-index-50 {
+  z-index: 50;
+}
