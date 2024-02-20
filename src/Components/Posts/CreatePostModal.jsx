@@ -2,36 +2,34 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 
-const url = "www.localhost3010";
-const postUrl = "/posts";
+const Url = "http://localhost:3010";
+const posterl = "/posts";
 const token = sessionStorage.getItem("token");
 
-const CreatPostModal = (props) => {
+const CreatPostModal = ({ createShowFalse, plus1RefreshaAction }) => {
   const [postPayload, setPostPayload] = useState({
-    titolo: props.post.titolo,
-    contenuto: props.post.contenuto,
-    immagine: props.post.immagine,
+    titolo: "",
+    contenuto: "",
+    immagine: "",
   });
-  console.log(props.post);
 
-  const modifyPost = () => {
-    console.log(token);
-    fetch("http://localhost:3010/posts/" + props.post.uuid + "/me", {
+  const createPost = () => {
+    fetch(Url + posterl, {
       headers: {
         "Content-type": "application/json",
         Authorization: "bearer " + token,
       },
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify(postPayload),
     })
       .then((response) => {
         if (response.ok) {
           console.log(response.json());
-          alert("post MODIFICATO!");
+          alert("post creato!");
         } else throw new Error();
       })
       .catch((error) => {
-        alert("errore nella modifica del post" + error);
+        alert("errore nella creazione del post" + error);
       });
   };
 
@@ -41,7 +39,7 @@ const CreatPostModal = (props) => {
         <h3>crea</h3>
         <button
           onClick={() => {
-            props.createShowFalse("");
+            createShowFalse(false);
           }}
         >
           <BsXLg />
@@ -50,9 +48,9 @@ const CreatPostModal = (props) => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          modifyPost();
-          props.createShowFalse("");
-          props.plus1Refresh();
+          createPost();
+          createShowFalse(false);
+          plus1RefreshaAction();
         }}
       >
         <Form.Group className="mb-3">
@@ -61,7 +59,6 @@ const CreatPostModal = (props) => {
             type="text"
             placeholder="titolo"
             required
-            value={postPayload.titolo}
             onChange={(e) => {
               setPostPayload({
                 ...postPayload,
@@ -76,7 +73,6 @@ const CreatPostModal = (props) => {
             type="text"
             placeholder="descrizione"
             required
-            value={postPayload.contenuto}
             onChange={(e) => {
               setPostPayload({
                 ...postPayload,
@@ -90,7 +86,6 @@ const CreatPostModal = (props) => {
             className="border border-2 border-success"
             type="text"
             placeholder="immagine"
-            value={postPayload.immagine}
             onChange={(e) => {
               setPostPayload({
                 ...postPayload,
@@ -100,7 +95,7 @@ const CreatPostModal = (props) => {
           />
         </Form.Group>
         <Button type="submit" className="primary">
-          Modifica
+          CREA
         </Button>
       </Form>
     </>

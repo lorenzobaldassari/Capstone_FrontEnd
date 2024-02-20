@@ -2,21 +2,21 @@ import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 
-const url = "www.localhost3010";
-const postUrl = "/posts";
+const url = "http://localhost:3010";
+const postUrl = "/posts/";
 const token = sessionStorage.getItem("token");
 
 const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
   const [postPayload, setPostPayload] = useState({
-    titolo: post.titolo,
+    titolo: post.titolo_post,
     contenuto: post.contenuto,
-    immagine: post.immagine,
+    immagine: post.immaginePost,
   });
   console.log(post);
 
   const modifyPost = () => {
     console.log(token);
-    fetch("http://localhost:3010/posts/" + post.uuid + "/me", {
+    fetch(url + postUrl + post.uuid + "/me", {
       headers: {
         "Content-type": "application/json",
         Authorization: "bearer " + token,
@@ -59,7 +59,6 @@ const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
           <Form.Control
             className="border border-2 border-success"
             type="text"
-            placeholder="titolo"
             required
             value={postPayload.titolo}
             onChange={(e) => {
@@ -74,13 +73,12 @@ const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
           <Form.Control
             className="border border-2 border-success"
             type="text"
-            placeholder="descrizione"
             required
             value={postPayload.contenuto}
             onChange={(e) => {
               setPostPayload({
                 ...postPayload,
-                descrizione: e.target.value,
+                contenuto: e.target.value,
               });
             }}
           />
