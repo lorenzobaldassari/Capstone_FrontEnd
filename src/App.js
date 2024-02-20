@@ -10,7 +10,10 @@ import Wellcome from "./Components/Posts/Wellcome";
 import Profilo from "./Components/Profilo/Profilo";
 import ProfiloPagina from "./Components/Profilo/ProfiloPagina";
 import Pagine from "./Components/Posts/Pagine/Pagine";
-// import ProfiloSingolaPagina from "../src/Components/Profilo/PRofiloSingolaPagina";
+import ProfiloSingolaPagina from "./Components/Profilo/PorfiloSingolaPagina";
+import Utenti from "./Components/Utenti/Utenti";
+import SingoloUtente from "./Components/Utenti/SingoloUtente";
+import PaginaSingoloUtente from "./Components/Utenti/PaginaSingoloUtente";
 
 function App() {
   return (
@@ -23,10 +26,12 @@ function App() {
           <Route path="/paginaLogin" Component={LoginPagina} />
           <Route path="/register" Component={Register} />
           <Route path="/home" Component={Home} />
-          <Route path="/profilo/:id" Component={Profilo} />
-          <Route path="/profiloPagina/:id" Component={ProfiloPagina} />
+          {/* <Route path="/profilo/:id" Component={Profilo} /> */}
+          {/* <Route path="/profiloPagina/:id" Component={ProfiloPagina} /> */}
           <Route path="/pagine" Component={Pagine} />
-          {/* <Route path="/singolaPagina" Component={ProfiloSingolaPagina} /> */}
+          <Route path="/utenti" Component={Utenti} />
+          <Route path="/singolaPagina/:id" Component={ProfiloSingolaPagina} />
+          <Route path="/singoloUtente/:id" Component={PaginaSingoloUtente} />
         </Routes>
       </BrowserRouter>
     </div>

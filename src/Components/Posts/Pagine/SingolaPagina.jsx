@@ -12,7 +12,7 @@ const SingolaPAgina = ({ pagine }) => {
                 <div>
                   <img src={elem.immagine} alt="immagine della scuola" />
                 </div>
-                <Link pagine={elem} to={"/singolaPagina"}>
+                <Link pagine={elem} to={"/singolaPagina/"+elem.id}>
                   <h4>{elem.titolo}</h4>
                 </Link>
                 <p>{elem.descrizione}</p>

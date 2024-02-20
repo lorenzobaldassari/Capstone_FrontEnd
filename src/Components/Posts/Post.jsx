@@ -155,7 +155,8 @@ const Post = () => {
                       </div>
                       <div>
                         <h6 className="mb-0 ms-3">
-                          <Link to={"/profilo/" + elem.utentePost.utente_uuid}>
+                          <Link to={"/singoloUtente/" + elem.utentePost.utente_uuid}>
+                         
                             {elem.utentePost.nome} {elem.utentePost.cognome}
                           </Link>
                         </h6>
@@ -176,7 +177,7 @@ const Post = () => {
                         />
                       </div>
                       <div>
-                        <Link to={"/profiloPagina/" + elem.paginaPost.id}>
+                        <Link to={"/singolaPagina/" + elem.paginaPost.id}>
                           <h6 className="mb-0 ms-3">
                             {elem.paginaPost.titolo}
                           </h6>

@@ -18,7 +18,16 @@ const CustomNavbar = () => {
                 <Link className="text-decoration-none text-white" to={"/home"}>
                   SocialeName
                 </Link>
-                <Link className="text-decoration-none text-white" to={"/pagine"}>
+                <Link
+                  className="text-decoration-none text-white"
+                  to={"/utenti"}
+                >
+                  Utenti
+                </Link>
+                <Link
+                  className="text-decoration-none text-white"
+                  to={"/pagine"}
+                >
                   Scuole
                 </Link>
                 <Link to={"/profile"}>
