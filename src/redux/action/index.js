@@ -20,9 +20,10 @@ export const loginAction = (body) => {
           type: LOGIN,
         });
         let data = await response.json();
-        console.log("token1 " + data.token);
+        console.log("token " + data.tipo);
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("uuid", data.uuid);
+        sessionStorage.setItem("tipo", data.tipo);
         console.log(sessionStorage.getItem("token"));
         console.log(sessionStorage.getItem("uuid"));
       } else {
@@ -49,9 +50,10 @@ export const loginPaginaAction = (body) => {
           type: LOGIN,
         });
         let data = await response.json();
-        console.log("token1 " + data.token);
+        console.log("token " + data);
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("uuid", data.uuid);
+        sessionStorage.setItem("tipo", data.tipo);
         console.log(sessionStorage.getItem("token"));
         console.log(sessionStorage.getItem("uuid"));
       } else {

@@ -11,6 +11,7 @@ import Pagine from "./Components/Pagine/Pagine";
 import ProfiloSingolaPagina from "./Components/Pagine/PorfiloSingolaPagina";
 import Utenti from "./Components/Utenti/Utenti";
 import PaginaSingoloUtente from "./Components/Utenti/PaginaSingoloUtente";
+import PaginaLoggata from "./Components/Pagine/PaginaLoggata";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/home" Component={Home} />
           <Route path="/pagine" Component={Pagine} />
           <Route path="/utenti" Component={Utenti} />
+          <Route path="/pagina/me" Component={PaginaLoggata} />
           <Route path="/singolaPagina/:id" Component={ProfiloSingolaPagina} />
           <Route path="/singoloUtente/:id" Component={PaginaSingoloUtente} />
         </Routes>

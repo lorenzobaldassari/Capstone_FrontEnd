@@ -23,12 +23,14 @@ const CreatPostModal = ({ createShowFalse, plus1RefreshaAction }) => {
       body: JSON.stringify(postPayload),
     })
       .then((response) => {
+        console.log("oggetto inviato", response)
         if (response.ok) {
           console.log(response.json());
           alert("post creato!");
         } else throw new Error();
       })
       .catch((error) => {
+        console.log("errore",error)
         alert("errore nella creazione del post" + error);
       });
   };
@@ -50,7 +52,7 @@ const CreatPostModal = ({ createShowFalse, plus1RefreshaAction }) => {
           e.preventDefault();
           createPost();
           createShowFalse(false);
-          plus1RefreshaAction();
+          // plus1RefreshaAction();
         }}
       >
         <Form.Group className="mb-3">
@@ -76,7 +78,7 @@ const CreatPostModal = ({ createShowFalse, plus1RefreshaAction }) => {
             onChange={(e) => {
               setPostPayload({
                 ...postPayload,
-                descrizione: e.target.value,
+                contenuto: e.target.value,
               });
             }}
           />

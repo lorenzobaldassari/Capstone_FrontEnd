@@ -6,6 +6,7 @@ import { Link, useLocation } from "react-router-dom";
 const CustomNavbar = () => {
   const location = useLocation();
   console.log(location);
+  const tipo = sessionStorage.getItem("tipo");
 
   return (
     <>
@@ -30,14 +31,24 @@ const CustomNavbar = () => {
                 >
                   Scuole
                 </Link>
-                <Link to={"/profile"}>
-                  <img
-                    className="rounded-5"
-                    src="https://img.freepik.com/free-photo/closeup-shot-adorable-kitten-sitting-couch_181624-46615.jpg?w=826&t=st=1661376842~exp=1661377442~hmac=ddbc90a80a7179ac4ac0b6017327562157a57933c95d475b80c7e24b869c114a"
-                    width={50}
-                    alt=""
-                  />
-                </Link>
+                {tipo === "pagina" && (
+                  <Link to={"/pagina/me"}>
+                    <img
+                      className="rounded-5"
+                      src="https://placekitten.com/50"
+                      alt=""
+                    />
+                  </Link>
+                )}
+                {tipo === "utente" && (
+                  <Link to={"/me"}>
+                    <img
+                      className="rounded-5"
+                      src="https://placedog.net/500"
+                      alt=""
+                    />
+                  </Link>
+                )}
               </Nav>
             </Container>
           </Navbar>

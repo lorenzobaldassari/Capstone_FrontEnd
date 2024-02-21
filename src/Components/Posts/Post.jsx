@@ -36,6 +36,7 @@ const Post = () => {
   }, []);
 
   const deletePost = (uuid) => {
+    console.log(uuid);
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
       headers: {
         "Content-type": "application/json",
@@ -103,8 +104,8 @@ const Post = () => {
                             "Are you sure you wish to delete this item?"
                           )
                         ) {
-                          plus1Refresh();
                           deletepost1(elem.uuid);
+                          // plus1Refresh();
                         }
                       }}
                     >
@@ -129,7 +130,7 @@ const Post = () => {
                           )
                         ) {
                           deletePost(elem.uuid);
-                          plus1Refresh();
+                          // plus1Refresh();
                         }
                       }}
                     >
@@ -155,8 +156,9 @@ const Post = () => {
                       </div>
                       <div>
                         <h6 className="mb-0 ms-3">
-                          <Link to={"/singoloUtente/" + elem.utentePost.utente_uuid}>
-                         
+                          <Link
+                            to={"/singoloUtente/" + elem.utentePost.utente_uuid}
+                          >
                             {elem.utentePost.nome} {elem.utentePost.cognome}
                           </Link>
                         </h6>
@@ -191,7 +193,7 @@ const Post = () => {
                   )}
                   <Card.Img variant="top" src={elem.immagine} />
                   <Card.Body className="pb-0">
-                    <Card.Title>{elem.titolo}</Card.Title>
+                    <Card.Title>{elem.titolo_post}</Card.Title>
                     <Card.Text>{elem.contenuto}</Card.Text>
                     <div id="customBr1" className="my-0"></div>
                     <div className="py-1 d-flex align-items-center justify-content-between ">

@@ -52,7 +52,7 @@ const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
           e.preventDefault();
           modifyPost();
           modifyShowFalse("");
-          plus1RefreshaAction();
+          // plus1RefreshaAction();
         }}
       >
         <Form.Group className="mb-3">
