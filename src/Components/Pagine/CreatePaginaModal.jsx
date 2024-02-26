@@ -3,17 +3,19 @@ import { Button, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 
 const Url = "http://localhost:3010";
-const posterl = "/posts";
+const posterl = "/pagine";
 const token = sessionStorage.getItem("token");
 
-const CreatPostModal = ({ createShowFalse }) => {
-  const [postPayload, setPostPayload] = useState({
+const CreatePaginaModal = ({ setShowFunc }) => {
+  const [PaginaPayload, setPostPayload] = useState({
     titolo: "",
-    contenuto: "",
-    immagine: "",
+    descrizione: "",
+    link_sito: "",
+    email: "",
+    password: "",
   });
 
-  const createPost = () => {
+  const createPagina = () => {
     console.log(token);
     fetch(Url + posterl, {
       headers: {
@@ -21,13 +23,13 @@ const CreatPostModal = ({ createShowFalse }) => {
         Authorization: "bearer " + token,
       },
       method: "POST",
-      body: JSON.stringify(postPayload),
+      body: JSON.stringify(PaginaPayload),
     })
       .then((response) => {
         console.log("oggetto inviato", response);
         if (response.ok) {
           console.log(response.json());
-          alert("post creato!");
+          alert("pagina creata!");
         } else throw new Error();
       })
       .catch((error) => {
@@ -42,7 +44,7 @@ const CreatPostModal = ({ createShowFalse }) => {
         <h3>crea</h3>
         <button
           onClick={() => {
-            createShowFalse(false);
+            setShowFunc(false);
           }}
         >
           <BsXLg />
@@ -51,9 +53,8 @@ const CreatPostModal = ({ createShowFalse }) => {
       <Form
         onSubmit={(e) => {
           e.preventDefault();
-          createPost();
-          createShowFalse(false);
-          // plus1RefreshaAction();
+          createPagina();
+          setShowFunc(false);
         }}
       >
         <Form.Group className="mb-3">
@@ -64,7 +65,7 @@ const CreatPostModal = ({ createShowFalse }) => {
             required
             onChange={(e) => {
               setPostPayload({
-                ...postPayload,
+                ...PaginaPayload,
                 titolo: e.target.value,
               });
             }}
@@ -78,8 +79,8 @@ const CreatPostModal = ({ createShowFalse }) => {
             required
             onChange={(e) => {
               setPostPayload({
-                ...postPayload,
-                contenuto: e.target.value,
+                ...PaginaPayload,
+                descrizione: e.target.value,
               });
             }}
           />
@@ -88,11 +89,37 @@ const CreatPostModal = ({ createShowFalse }) => {
           <Form.Control
             className="border border-2 border-success"
             type="text"
-            placeholder="immagine"
+            placeholder="link_sito"
             onChange={(e) => {
               setPostPayload({
-                ...postPayload,
-                immagine: e.target.value,
+                ...PaginaPayload,
+                link_sito: e.target.value,
+              });
+            }}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Control
+            className="border border-2 border-success"
+            type="email"
+            placeholder="email"
+            onChange={(e) => {
+              setPostPayload({
+                ...PaginaPayload,
+                email: e.target.value,
+              });
+            }}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Control
+            className="border border-2 border-success"
+            type="password"
+            placeholder="password"
+            onChange={(e) => {
+              setPostPayload({
+                ...PaginaPayload,
+                password: e.target.value,
               });
             }}
           />
@@ -105,4 +132,4 @@ const CreatPostModal = ({ createShowFalse }) => {
   );
 };
 
-export default CreatPostModal;
+export default CreatePaginaModal;

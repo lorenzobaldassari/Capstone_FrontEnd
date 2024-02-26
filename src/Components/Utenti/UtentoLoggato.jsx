@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import CreatePaginaModal from "../Pagine/CreatePaginaModal";
 
-const PaginaSingoloUtente = () => {
-  const { id } = useParams();
+const UtenteLoggato = () => {
+  const id = sessionStorage.getItem("uuid");
   const url = "http://localhost:3010";
   const postUrl = "/utenti/";
   const token = sessionStorage.getItem("token");
   const [data, setData] = useState({});
-  console.log(data);
-
+  const [showCreatePagina, setShowCreatePagina] = useState(false);
+  const setShowFunc = (bool) => {
+    setShowCreatePagina(bool);
+  };
   console.log(data);
   const getUtente = async () => {
     try {
@@ -21,6 +24,7 @@ const PaginaSingoloUtente = () => {
       });
       if (response.ok) {
         let date = await response.json();
+        console.log(date);
         setData(date);
       } else throw new Error();
     } catch (error) {
@@ -34,7 +38,7 @@ const PaginaSingoloUtente = () => {
 
   return (
     <>
-      <Container fluid className="w-100 position-relative">
+      <Container fluid className="w-100">
         <Row className="w-100">
           <Col xs={12} className="d-flex justify-content-center w-100">
             <div className="bg-warning p-4">
@@ -49,10 +53,11 @@ const PaginaSingoloUtente = () => {
             </div>
           </Col>
         </Row>
-        
       </Container>
+      <Button onClick={() => setShowCreatePagina(true)}>crea pagina</Button>
+      {showCreatePagina && <CreatePaginaModal setShowFunc={setShowFunc} />}
     </>
   );
 };
 
-export default PaginaSingoloUtente;
+export default UtenteLoggato;

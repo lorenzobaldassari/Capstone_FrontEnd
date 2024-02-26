@@ -8,6 +8,7 @@ import { BsThreeDots } from "react-icons/bs";
 import CreatPostModal from "./CreatePostModal";
 import ModifyPostModal from "./ModifyPostModal";
 import { Link } from "react-router-dom";
+const token = sessionStorage.getItem("token");
 
 const Post = () => {
   const url = "http://localhost:3010";
@@ -15,21 +16,17 @@ const Post = () => {
   const dispatch = useDispatch();
   let [modifyShow, setModifyShow] = useState("");
   let [createShow, setCreateShow] = useState("");
-  let [uuid, setUuid] = useState(sessionStorage.getItem("uuid"));
-  // const [posts, setPosts] = useState([]);
+  const uuid = sessionStorage.getItem("uuid");
   const plus1Refresh = () => {
     window.location.reload(true);
   };
   const createShowFalse = (string) => {
     setCreateShow(string);
   };
-
   const modifyShowFalse = (string) => {
     setModifyShow(string);
   };
-  const token = sessionStorage.getItem("token");
   useEffect(() => {
-    setUuid(sessionStorage.getItem("uuid"));
     dispatch(getPosts(token));
     getPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps

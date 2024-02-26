@@ -41,10 +41,10 @@ const CustomNavbar = () => {
                   </Link>
                 )}
                 {tipo === "utente" && (
-                  <Link to={"/me"}>
+                  <Link to={"/utente/me"}>
                     <img
                       className="rounded-5"
-                      src="https://placedog.net/500"
+                      src="https://placedog.net/50"
                       alt=""
                     />
                   </Link>
