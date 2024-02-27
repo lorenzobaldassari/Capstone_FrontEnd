@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const Wellcome = () => {
+
   const navigate = useNavigate();
   return (
     <div
@@ -16,6 +17,8 @@ const Wellcome = () => {
       >
         Benvenuto!
       </Button>
+
+
     </div>
   );
 };

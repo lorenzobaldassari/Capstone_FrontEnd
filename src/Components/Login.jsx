@@ -18,7 +18,6 @@ const Login = () => {
 
   return (
     <>
-      <h1>Login Utente</h1>
       <Form
         className="d-flex flex-column align-items-center justify-content-center"
         id="loginForm"
@@ -32,10 +31,10 @@ const Login = () => {
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
-                className="border border-2 border-success"
+                className="border border-2 border-primary"
                 type="Email"
                 required
-                placeholder="inserisci un'email"
+                placeholder="inserisci la tua email"
                 name="email"
                 onChange={(e) => {
                   SetLoginPayload({
@@ -49,8 +48,8 @@ const Login = () => {
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
-                className="border border-2 border-success"
-                type="text"
+                className="border border-2 border-primary"
+                type="password"
                 required
                 placeholder="password"
                 name="email"
@@ -63,21 +62,21 @@ const Login = () => {
               />
             </Form.Group>
           </div>
-          <Button type="submit" className=" success">
+          <Button type="submit" className="fw-bold primary mb-3">
             Login
           </Button>
-          <p>
-            hai una pagina?{" "}
-            <Link className="text-primary" to={"/paginaLogin"}>
-              {" "}
-              logga!
-            </Link>
-          </p>
           <p>
             non sei registrato?{" "}
             <Link className="text-primary" to={"/register"}>
               {" "}
               registrati!
+            </Link>
+          </p>
+          <p>
+            hai una pagina?{" "}
+            <Link className="text-primary" to={"/paginaLogin"}>
+              {" "}
+              logga!
             </Link>
           </p>
         </div>

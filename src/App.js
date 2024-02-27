@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./Sass/Custom/custom_bootstrap.css";
 import "./App.css";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
@@ -16,7 +17,7 @@ import UtenteLoggato from "./Components/Utenti/UtentoLoggato";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App fw-regular bg-third">
       <BrowserRouter>
         <CustomNavbar />
         <Routes>

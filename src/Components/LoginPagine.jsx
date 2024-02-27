@@ -17,7 +17,6 @@ const LoginPagina = () => {
   const auth = useSelector((state) => state.login.auth);
   return (
     <>
-      <h1>Login Pagina</h1>
       <Form
         className="d-flex flex-column align-items-center justify-content-center"
         id="loginForm"
@@ -31,10 +30,10 @@ const LoginPagina = () => {
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
-                className="border border-2 border-success"
+                className="border border-2 border-primary"
                 type="Email"
                 required
-                placeholder="inserisci un'email"
+                placeholder="email della pagina"
                 name="email"
                 onChange={(e) => {
                   SetLoginPayload({
@@ -48,7 +47,7 @@ const LoginPagina = () => {
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
-                className="border border-2 border-success"
+                className="border border-2 border-primary"
                 type="text"
                 required
                 placeholder="password"
@@ -62,14 +61,14 @@ const LoginPagina = () => {
               />
             </Form.Group>
           </div>
-          <Button type="submit" className=" success">
+          <Button type="submit" className="fw-bold bg-primary mb-3">
             Login
           </Button>
           <p>
-            non sei registrato?{" "}
-            <Link className="text-primary" to={"/register"}>
+            torna a{" "}
+            <Link className="text-primary" to={"/"}>
               {" "}
-              registrati!
+              login utente!
             </Link>
           </p>
         </div>

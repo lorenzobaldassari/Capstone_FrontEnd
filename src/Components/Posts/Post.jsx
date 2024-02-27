@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../redux/action";
-import { Button, Col, Row } from "react-bootstrap";
-import { BsXLg } from "react-icons/bs";
-import { BsThreeDots } from "react-icons/bs";
+import { Button, Col, Dropdown, Row } from "react-bootstrap";
 import CreatPostModal from "./CreatePostModal";
 import ModifyPostModal from "./ModifyPostModal";
 import { Link } from "react-router-dom";
+import "./posts.css";
+
 const token = sessionStorage.getItem("token");
+const tipo = sessionStorage.getItem("tipo");
+const nome = sessionStorage.getItem("nome");
+const cognome = sessionStorage.getItem("cognome");
+const immagine = sessionStorage.getItem("immagine");
 
 const Post = () => {
   const url = "http://localhost:3010";
@@ -76,85 +80,126 @@ const Post = () => {
 
   return (
     <>
-      <div className="d-flex mt-4 justify-content-center">
-        <Button
-          onClick={() => {
-            setCreateShow(true);
-          }}
-        >
-          Crea un post
-        </Button>
-      </div>
-
-      <Row className="my-4 g-3 mx-2">
+      <Row className="my-4 g-3 mx-2 w-90 position-relative">
+        <div className="d-flex justify-content-center w-100 align-items-center   ">
+          <div className=" d-flex shadow mt-4 justify-content-between w-100 bg-white pt-1 px-2 rounded-2 pb-3 border border-2 border-primary align-items-center ">
+            <div>
+              <img
+                src={immagine}
+                width={50}
+                alt="immagine di profilo"
+                className=" me-3 rounded-5"
+              />
+            </div>
+            <Button
+              id="button1"
+              className="w-70 rounded-5 bg-third text-dark w-100"
+              onClick={() => {
+                setCreateShow(true);
+              }}
+            >
+              Crea un post
+            </Button>
+          </div>
+        </div>
         {posts.map((elem) => {
           return (
-            <div key={elem.uuid}>
+            <div key={elem.uuid} className="position-relative">
               <Col xs={12} className="position-relative">
                 {elem.paginaPost && elem.paginaPost.id === uuid && (
                   <div clasname="position-absolute top-0 left-0 ">
-                    <button
-                      className="dots"
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you wish to delete this item?"
-                          )
-                        ) {
-                          deletepost1(elem.uuid);
-                          // plus1Refresh();
-                        }
-                      }}
-                    >
-                      <BsXLg />
-                    </button>
-                    <button
-                      className="x"
-                      onClick={() => setModifyShow(elem.uuid)}
-                    >
-                      <BsThreeDots />
-                    </button>
+                    <Dropdown className="dots ">
+                      <Dropdown.Toggle
+                        variant="primary"
+                        className="bg-white border-0 text-primary fs-4"
+                        id="dropdown-basic"
+                      ></Dropdown.Toggle>
+
+                      <Dropdown.Menu className="border-2 border-primary ">
+                        <Dropdown.Item href="#/action-2">
+                          <button
+                            className="border-0 bg-none"
+                            onClick={() => setModifyShow(elem.uuid)}
+                          >
+                            modifica
+                          </button>
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-1">
+                          {" "}
+                          <button
+                            className="border-0 bg-none"
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Are you sure you wish to delete this item?"
+                                )
+                              ) {
+                                deletePost(elem.uuid);
+                              }
+                            }}
+                          >
+                            {/* <BsXLg /> */}
+                            Elimina
+                          </button>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
                 )}
                 {elem.utentePost && elem.utentePost.utente_uuid === uuid && (
                   <div clasname="position-absolute top-0 left-0 ">
-                    <button
-                      className="dots"
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you wish to delete this item?"
-                          )
-                        ) {
-                          deletePost(elem.uuid);
-                          // plus1Refresh();
-                        }
-                      }}
-                    >
-                      <BsXLg />
-                    </button>
-                    <button
-                      className="x"
-                      onClick={() => setModifyShow(elem.uuid)}
-                    >
-                      <BsThreeDots />
-                    </button>
+                    <Dropdown className="dots ">
+                      <Dropdown.Toggle
+                        variant="primary"
+                        className="bg-white border-0 text-primary fs-4"
+                        id="dropdown-basic"
+                      ></Dropdown.Toggle>
+
+                      <Dropdown.Menu className="border-2 border-primary ">
+                        <Dropdown.Item href="#/action-2">
+                          <button
+                            className="border-0 bg-none"
+                            onClick={() => setModifyShow(elem.uuid)}
+                          >
+                            modifica
+                          </button>
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-1">
+                          {" "}
+                          <button
+                            className="border-0 bg-none"
+                            onClick={() => {
+                              if (
+                                window.confirm(
+                                  "Are you sure you wish to delete this item?"
+                                )
+                              ) {
+                                deletePost(elem.uuid);
+                              }
+                            }}
+                          >
+                            Elimina
+                          </button>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </div>
                 )}
-                <Card className="border-0 bg-warning w-100  ">
+                <Card className="border-2 shadow border-primary bg-secondary rounded-2 w-100  ">
+                  {/*  POST UTENTI */}
                   {elem.utentePost && (
-                    <div className="d-flex align-items-center justify content-start">
-                      <div>
+                    <div className="d-flex align-items-center justify content-start p-4  pb-0">
+                      <div className="rounded-50  circle ">
                         <img
                           src={elem.utentePost.immagine_di_profilo}
-                          className="rounded-5"
+                          className="rounded-50 w-100 h-100"
                           alt=""
                         />
                       </div>
                       <div>
                         <h6 className="mb-0 ms-3">
                           <Link
-                            to={"/singoloUtente/" + elem.utentePost.utente_uuid}
+                            className="text-black text-decoration-none fw-bold display-6" to={"/singoloUtente/" + elem.utentePost.utente_uuid}
                           >
                             {elem.utentePost.nome} {elem.utentePost.cognome}
                           </Link>
@@ -166,18 +211,20 @@ const Post = () => {
                       </div>
                     </div>
                   )}
+
+                  {/* POST PAGINA */}
                   {elem.paginaPost && (
-                    <div className="d-flex align-items-center justify content-start">
-                      <div>
+                    <div className="d-flex align-items-center justify content-start p-4 pb-0">
+                      <div className="circle">
                         <img
                           src={elem.paginaPost.immagine}
-                          className="rounded-5"
+                          className="rounded-50 w-100 h-100"
                           alt=""
                         />
                       </div>
                       <div>
-                        <Link to={"/singolaPagina/" + elem.paginaPost.id}>
-                          <h6 className="mb-0 ms-3">
+                        <Link className="text-decoration-none" to={"/singolaPagina/" + elem.paginaPost.id}>
+                          <h6 className="display-6 fw-bold mb-0 ms-3 text-black">
                             {elem.paginaPost.titolo}
                           </h6>
                         </Link>
@@ -212,7 +259,7 @@ const Post = () => {
               </Col>
 
               {modifyShow === elem.uuid && (
-                <div className="position-absolute top-50 start-50 bg-white p-5  z-index-50">
+                <div className="position-absolute positionModify w-90 bg-white p-5 z-index-50 border border-2 border-primary shadow  ">
                   <ModifyPostModal
                     plus1RefreshaAction={plus1Refresh}
                     modifyShowFalse={() => modifyShowFalse()}
@@ -223,15 +270,15 @@ const Post = () => {
             </div>
           );
         })}
+        {createShow === true && (
+          <div className="position-fixed w-90 bg-white p-5 z-index-50  ">
+            <CreatPostModal
+              plus1RefreshaAction={plus1Refresh}
+              createShowFalse={createShowFalse}
+            />
+          </div>
+        )}
       </Row>
-      {createShow === true && (
-        <div className="position-absolute top-50 start-50 bg-white p-5 z-index-50  ">
-          <CreatPostModal
-            plus1RefreshaAction={plus1Refresh}
-            createShowFalse={createShowFalse}
-          />
-        </div>
-      )}
     </>
   );
 };

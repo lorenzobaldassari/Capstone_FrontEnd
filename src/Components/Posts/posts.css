@@ -1,0 +1,35 @@
+#button1 {
+  /* height: 20px !important; */
+}
+
+.shadow {
+  box-shadow: 0px 0px 9px 0px #7a1c7ab3 !important;
+}
+
+.input:focus {
+  box-shadow: 0px 0px 9px 3px #7a1c7ab3 !important;
+  /* color: rgb(187, 18, 18) !important; */
+  transition: 0.5s !important;
+  transition: all;
+}
+.border-white {
+  border: 2px solid white;
+}
+
+.bg-none {
+  background: none !important;
+}
+
+.positionModify {
+  top: 10% !important;
+  left: 5% !important;
+  z-index: 200;
+}
+
+.rounded-50 {
+  border-radius: 500px !important;
+}
+.circle1 {
+  width: 75px;
+  height: 75px;
+}

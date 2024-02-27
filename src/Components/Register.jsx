@@ -36,7 +36,6 @@ const Register = () => {
 
   return (
     <>
-      <h1>registrazione</h1>
       <Form
         id="registerForm"
         className="w-100 d-flex flex-column justify-content-center align-items-center"
@@ -48,7 +47,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-success"
+              className="border border-2 border-primary"
               type="text"
               placeholder="nome"
               required
@@ -64,7 +63,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-success"
+              className="border border-2 border-primary"
               type="text"
               placeholder="cognome"
               required
@@ -80,7 +79,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-success"
+              className="border border-2 border-primary"
               type="email"
               placeholder="email"
               required
@@ -96,8 +95,8 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-success"
-              type="text"
+              className="border border-2 border-primary"
+              type="password"
               placeholder="password"
               required
               onChange={(e) => {
@@ -109,8 +108,8 @@ const Register = () => {
             />
           </Form.Group>
         </div>
-        <Button type="submit" className="primary">
-          registrati
+        <Button type="submit" className="fw-bold primary mb-3">
+          Registrati
         </Button>
         <p>
           sei gia registrato?{" "}

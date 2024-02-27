@@ -8,15 +8,15 @@ const Home = () => {
     <>
       <Container fluid className="">
         <Row className="">
-          <Col lg={2} className="d-none d-lg-block">
+          {/* <Col lg={2} className="d-none d-lg-block">
             <div className="d-flex justify-content-center">
               <p>colonna 1</p>
             </div>
-          </Col>
-          <Col xs={12} lg={8} className="p-0  ">
+          </Col> */}
+          <Col xs={12} lg={10} className="p-0 d-flex flex-column align-items-center ">
             <Post />
           </Col>
-          <Col lg={2} className="d-none  d-lg-block">
+          <Col lg={2} className="d-none bg-success  d-lg-block">
             <div className="d-flex justify-content-center">
               <p>colonna 2</p>
             </div>

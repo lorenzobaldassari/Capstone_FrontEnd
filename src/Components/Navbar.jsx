@@ -13,7 +13,7 @@ const CustomNavbar = () => {
       {location.pathname !== "/" &&
         location.pathname !== "/register" &&
         location.pathname !== "/paginaLogin" && (
-          <Navbar bg="primary" className="w-100" data-bs-theme="dark">
+          <Navbar bg="primary" className="w-100 fw-bold fs-3" data-bs-theme="dark">
             <Container fluid className=" w-100">
               <Nav className=" ms-5 me-5  w-100 d-flex align-items-center justify-content-between">
                 <Link className="text-decoration-none text-white" to={"/home"}>
