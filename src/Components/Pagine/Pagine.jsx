@@ -31,7 +31,7 @@ const Pagine = () => {
   }, []);
   return (
     <>
-      <Container>
+      <Container fluid className="mx-0 px-0 w-100 footerMargin">
         <h1>TUTTE LE PAGINE</h1>
         <SingolaPAgina pagine={data} />
       </Container>

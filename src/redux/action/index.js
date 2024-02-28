@@ -27,8 +27,6 @@ export const loginAction = (body) => {
         sessionStorage.setItem("nome", data.nome);
         sessionStorage.setItem("cognome", data.cognome);
         sessionStorage.setItem("immagine", data.immagine);
-        console.log(sessionStorage.getItem("token"));
-        console.log(sessionStorage.getItem("uuid"));
       } else {
         throw new Error();
       }
@@ -57,8 +55,10 @@ export const loginPaginaAction = (body) => {
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("uuid", data.uuid);
         sessionStorage.setItem("tipo", data.tipo);
-        console.log(sessionStorage.getItem("token"));
-        console.log(sessionStorage.getItem("uuid"));
+        sessionStorage.setItem("nome", data.nome);
+        sessionStorage.setItem("cognome", data.cognome);
+        sessionStorage.setItem("immagine", data.immagine);
+
       } else {
         throw new Error();
       }

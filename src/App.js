@@ -14,6 +14,8 @@ import Utenti from "./Components/Utenti/Utenti";
 import PaginaSingoloUtente from "./Components/Utenti/PaginaSingoloUtente";
 import PaginaLoggata from "./Components/Pagine/PaginaLoggata";
 import UtenteLoggato from "./Components/Utenti/UtentoLoggato";
+import CustomFooter from "./Components/CustomFooter";
+import CreatePaginaModal from "./Components/Pagine/CreatePaginaModal";
 
 function App() {
   return (
@@ -32,7 +34,9 @@ function App() {
           <Route path="/utente/me" Component={UtenteLoggato} />
           <Route path="/singolaPagina/:id" Component={ProfiloSingolaPagina} />
           <Route path="/singoloUtente/:id" Component={PaginaSingoloUtente} />
+          <Route path="/creazionePagina" Component={CreatePaginaModal} />
         </Routes>
+        <CustomFooter />
       </BrowserRouter>
     </div>
   );

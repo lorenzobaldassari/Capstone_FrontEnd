@@ -11,10 +11,41 @@ const token =
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const url = "http://localhost:3010";
   const [loginPayload, SetLoginPayload] = useState({
     email: "",
     password: "",
   });
+
+  const login = async () => {
+    try {
+      let response = await fetch(url + "/auth/login", {
+        method: "POST",
+        body: JSON.stringify(loginPayload),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      if (response.ok) {
+        // dispatch({
+        //   type: LOGIN,
+        // });
+        let data = await response.json();
+        console.log("token " + data.tipo);
+        navigate("/wellcome");
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("uuid", data.uuid);
+        sessionStorage.setItem("tipo", data.tipo);
+        sessionStorage.setItem("nome", data.nome);
+        sessionStorage.setItem("cognome", data.cognome);
+        sessionStorage.setItem("immagine", data.immagine);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      alert("dati inseriti non corretti!login fallito " + error);
+    }
+  };
 
   return (
     <>
@@ -23,8 +54,8 @@ const Login = () => {
         id="loginForm"
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(loginAction(loginPayload));
-          navigate("/wellcome");
+          // dispatch(loginAction(loginPayload));
+          login();
         }}
       >
         <div className="d-flex flex-column align-items-center justify-content-center">

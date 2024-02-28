@@ -33,17 +33,9 @@ const Utenti = () => {
 
   return (
     <>
-      <h1>LISTA UTENTI</h1>
-      <Container>
-        <Row>
-          {data.map((elem) => {
-            return (
-              <Col key={elem.utente_uuid}>
-                <SingoloUtente utente={elem} />
-              </Col>
-            );
-          })}
-        </Row>
+      <Container fluid className="w-100 px-0 mx-0 footerMargin">
+        <h1>TUTTI GLI UTENTI</h1>
+        <SingoloUtente utente={data} />
       </Container>
     </>
   );

@@ -6,15 +6,15 @@ import { Button, Col, Dropdown, Row } from "react-bootstrap";
 import CreatPostModal from "./CreatePostModal";
 import ModifyPostModal from "./ModifyPostModal";
 import { Link } from "react-router-dom";
+import { BiSolidLike } from "react-icons/bi";
 import "./posts.css";
 
-const token = sessionStorage.getItem("token");
-const tipo = sessionStorage.getItem("tipo");
-const nome = sessionStorage.getItem("nome");
-const cognome = sessionStorage.getItem("cognome");
-const immagine = sessionStorage.getItem("immagine");
-
 const Post = () => {
+  const token = sessionStorage.getItem("token");
+  const tipo = sessionStorage.getItem("tipo");
+  const nome = sessionStorage.getItem("nome");
+  const cognome = sessionStorage.getItem("cognome");
+  const immagine = sessionStorage.getItem("immagine");
   const url = "http://localhost:3010";
   const postUrl = "/posts/";
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ const Post = () => {
                 src={immagine}
                 width={50}
                 alt="immagine di profilo"
-                className=" me-3 rounded-5"
+                className=" me-3 rounded-5 circle2"
               />
             </div>
             <Button
@@ -189,17 +189,18 @@ const Post = () => {
                   {/*  POST UTENTI */}
                   {elem.utentePost && (
                     <div className="d-flex align-items-center justify content-start p-4  pb-0">
-                      <div className="rounded-50  circle ">
+                      <div className="rounded-50  circle1 d-flex-align-items-center ">
                         <img
                           src={elem.utentePost.immagine_di_profilo}
-                          className="rounded-50 w-100 h-100"
+                          className="circle1"
                           alt=""
                         />
                       </div>
                       <div>
                         <h6 className="mb-0 ms-3">
                           <Link
-                            className="text-black text-decoration-none fw-bold display-6" to={"/singoloUtente/" + elem.utentePost.utente_uuid}
+                            className="text-black text-decoration-none fw-bold display-6"
+                            to={"/singoloUtente/" + elem.utentePost.utente_uuid}
                           >
                             {elem.utentePost.nome} {elem.utentePost.cognome}
                           </Link>
@@ -215,15 +216,18 @@ const Post = () => {
                   {/* POST PAGINA */}
                   {elem.paginaPost && (
                     <div className="d-flex align-items-center justify content-start p-4 pb-0">
-                      <div className="circle">
+                      <div className=" circle1 d-flex-align-items-center ">
                         <img
                           src={elem.paginaPost.immagine}
-                          className="rounded-50 w-100 h-100"
+                          className=" circle1"
                           alt=""
                         />
                       </div>
                       <div>
-                        <Link className="text-decoration-none" to={"/singolaPagina/" + elem.paginaPost.id}>
+                        <Link
+                          className="text-decoration-none"
+                          to={"/singolaPagina/" + elem.paginaPost.id}
+                        >
                           <h6 className="display-6 fw-bold mb-0 ms-3 text-black">
                             {elem.paginaPost.titolo}
                           </h6>
@@ -240,26 +244,27 @@ const Post = () => {
                     <Card.Title>{elem.titolo_post}</Card.Title>
                     <Card.Text>{elem.contenuto}</Card.Text>
                     <div id="customBr1" className="my-0"></div>
-                    <div className="py-1 d-flex align-items-center justify-content-between ">
-                      <Button className="transparent border-0 text-dark mb-0">
-                        Like
+                    <div className="py-1 d-flex align-items-center justify-content-start ">
+                      <Button className="transparent border-0 text-dark mb-0 fs-5 d-flex align-items-center me-5">
+                        <BiSolidLike />
+                        <p className="mb-0 ms-2">12</p>
                       </Button>
                       <Button className="transparent border-0 text-dark mb-0">
                         commenta
                       </Button>
-                      <Button className="transparent border-0 text-dark mb-0">
+                      {/* <Button className="transparent border-0 text-dark mb-0">
                         Condividi
                       </Button>
                       <Button className="transparent border-0 text-dark mb-0">
                         invia
-                      </Button>
+                      </Button> */}
                     </div>
                   </Card.Body>
                 </Card>
               </Col>
 
               {modifyShow === elem.uuid && (
-                <div className="position-absolute positionModify w-90 bg-white p-5 z-index-50 border border-2 border-primary shadow  ">
+                <div className="position-absolute positionModify w-90 bg-white p-5 z-index-50 border border-2 border-black shadow  ">
                   <ModifyPostModal
                     plus1RefreshaAction={plus1Refresh}
                     modifyShowFalse={() => modifyShowFalse()}
@@ -271,7 +276,7 @@ const Post = () => {
           );
         })}
         {createShow === true && (
-          <div className="position-fixed w-90 bg-white p-5 z-index-50  ">
+          <div className="position-fixed w-90 bg-white p-5 z-index-50 border border-2 border-black shadow ">
             <CreatPostModal
               plus1RefreshaAction={plus1Refresh}
               createShowFalse={createShowFalse}

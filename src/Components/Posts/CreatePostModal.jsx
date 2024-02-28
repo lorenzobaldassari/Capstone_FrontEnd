@@ -39,7 +39,7 @@ const CreatPostModal = ({ createShowFalse }) => {
 
   return (
     <>
-      <div className="position-relative">
+      <div className="position-relative  ">
         <Form className="pt-5"
           onSubmit={(e) => {
             e.preventDefault();
@@ -48,7 +48,7 @@ const CreatPostModal = ({ createShowFalse }) => {
             // plus1RefreshaAction();
           }}
         >
-          <Card.Body className="pb-0 ">
+          <Card.Body className="pb-0  ">
             <Card.Title>
               <Form.Group className="mb-3 ">
                 <Form.Control
