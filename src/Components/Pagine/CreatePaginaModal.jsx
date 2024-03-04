@@ -18,7 +18,6 @@ const CreatePaginaModal = ({ setShowFunc }) => {
   });
 
   const createPagina = () => {
-    console.log(token);
     fetch(Url + posterl, {
       headers: {
         "Content-type": "application/json",
@@ -30,7 +29,6 @@ const CreatePaginaModal = ({ setShowFunc }) => {
       .then((response) => {
         console.log("oggetto inviato", response);
         if (response.ok) {
-          console.log(response.json());
           alert("pagina creata!");
         } else throw new Error();
       })

@@ -23,9 +23,6 @@ const PaginaSingoloUtente = () => {
     setModifyShow(string);
   };
 
-  console.log(data);
-
-  console.log(data);
   const getUtente = async () => {
     try {
       let response = await fetch(url + postUrl + id, {
@@ -53,7 +50,6 @@ const PaginaSingoloUtente = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        console.log("posts", date);
         setPosts(date);
       } else throw new Error();
     } catch (error) {
@@ -61,7 +57,6 @@ const PaginaSingoloUtente = () => {
     }
   };
   const deletePost = (uuid) => {
-    console.log(uuid);
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
       headers: {
         "Content-type": "application/json",

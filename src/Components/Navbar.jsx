@@ -5,7 +5,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const CustomNavbar = () => {
   const location = useLocation();
-  console.log(location);
   const tipo = sessionStorage.getItem("tipo");
   const immagine = sessionStorage.getItem("immagine");
 

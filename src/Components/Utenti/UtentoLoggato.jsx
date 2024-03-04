@@ -24,7 +24,6 @@ const UtenteLoggato = () => {
   const setShowFunc = (bool) => {
     setShowCreatePagina(bool);
   };
-  console.log(data);
   const getUtente = async () => {
     try {
       let response = await fetch(url + postUrl + id, {
@@ -35,7 +34,6 @@ const UtenteLoggato = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        console.log(date);
         setData(date);
       } else throw new Error();
     } catch (error) {
@@ -53,7 +51,6 @@ const UtenteLoggato = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        console.log("posts", date);
         setPosts(date);
       } else throw new Error();
     } catch (error) {
@@ -61,7 +58,6 @@ const UtenteLoggato = () => {
     }
   };
   const deletePost = (uuid) => {
-    console.log(uuid);
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
       headers: {
         "Content-type": "application/json",

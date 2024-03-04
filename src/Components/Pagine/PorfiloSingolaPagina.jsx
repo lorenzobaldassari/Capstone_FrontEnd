@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import "./pagine.css";
 import ModifyPostModal from "../Posts/ModifyPostModal";
+const token = sessionStorage.getItem("token");
 
 const ProfiloSingolaPagina = () => {
   const { id } = useParams();
@@ -11,7 +12,6 @@ const ProfiloSingolaPagina = () => {
   const ID = sessionStorage.getItem("uuid");
   const pagineUrl = "/pagine/";
   const postsUrl = "/posts/";
-  const token = sessionStorage.getItem("token");
 
   const [data, setData] = useState({});
   const [posts, setPosts] = useState([]);
@@ -48,7 +48,6 @@ const ProfiloSingolaPagina = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        console.log("posts", date);
         setPosts(date);
       } else throw new Error();
     } catch (error) {
@@ -56,7 +55,6 @@ const ProfiloSingolaPagina = () => {
     }
   };
   const deletePost = (uuid) => {
-    console.log(uuid);
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
       headers: {
         "Content-type": "application/json",
@@ -115,7 +113,11 @@ const ProfiloSingolaPagina = () => {
               </div>
             </div>
           </Col>
-          <Col xs={10} xl={8} className="mb-3 bg-white px-0 shadowBlack rounded-3">
+          <Col
+            xs={10}
+            xl={8}
+            className="mb-3 bg-white px-0 shadowBlack rounded-3"
+          >
             <Row className=" my-4 justify-content-center ">
               <Col xs={10} xl={10} className="">
                 {posts.map((posts) => {

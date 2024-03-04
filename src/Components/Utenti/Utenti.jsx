@@ -8,7 +8,6 @@ const Utenti = () => {
   const token = sessionStorage.getItem("token");
   const [data, setData] = useState([]);
 
-  console.log("data", data);
 
   const getUtenti = async () => {
     try {

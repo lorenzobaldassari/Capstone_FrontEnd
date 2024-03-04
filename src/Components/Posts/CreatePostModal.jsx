@@ -15,7 +15,6 @@ const CreatPostModal = ({ createShowFalse }) => {
   });
 
   const createPost = () => {
-    console.log(token);
     fetch(Url + posterl, {
       headers: {
         "Content-type": "application/json",
@@ -27,7 +26,6 @@ const CreatPostModal = ({ createShowFalse }) => {
       .then((response) => {
         console.log("oggetto inviato", response);
         if (response.ok) {
-          console.log(response.json());
           alert("post creato!");
         } else throw new Error();
       })

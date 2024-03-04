@@ -37,7 +37,6 @@ const Post = () => {
   }, []);
 
   const deletePost = (uuid) => {
-    console.log(uuid);
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
       headers: {
         "Content-type": "application/json",
@@ -76,7 +75,6 @@ const Post = () => {
   };
 
   let posts = useSelector((state) => state.post.posts);
-  console.log(posts);
 
   return (
     <>

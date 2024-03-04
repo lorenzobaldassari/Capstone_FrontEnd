@@ -12,10 +12,8 @@ const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
     contenuto: post.contenuto,
     immagine: post.immaginePost,
   });
-  console.log(post);
 
   const modifyPost = () => {
-    console.log(token);
     fetch(url + postUrl + post.uuid + "/me", {
       headers: {
         "Content-type": "application/json",

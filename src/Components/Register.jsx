@@ -24,7 +24,6 @@ const Register = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log(response.json());
           const data = response.json();
           console.log(data);
         } else throw new Error();

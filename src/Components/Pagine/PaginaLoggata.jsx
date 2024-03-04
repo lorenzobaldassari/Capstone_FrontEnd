@@ -48,7 +48,6 @@ const PaginaLoggata = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        console.log("posts", date);
         setPosts(date);
       } else throw new Error();
     } catch (error) {
@@ -56,7 +55,6 @@ const PaginaLoggata = () => {
     }
   };
   const deletePost = (uuid) => {
-    console.log(uuid);
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
       headers: {
         "Content-type": "application/json",

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const SingoloUtente = ({ utente }) => {
-  console.log(utente);
   const [showCreatePagina, setShowCreatePagina] = useState(false);
   const setShowFunc = (bool) => {
     setShowCreatePagina(bool);
@@ -15,7 +14,7 @@ const SingoloUtente = ({ utente }) => {
       <Row className="w-100 px-0 mx-0">
         {utente.map((elem, i) => {
           return (
-            <>
+            <div key={i}>
               {i % 2 === 0 && (
                 <Col
                   className="bg-secondary px-5 w-100"
@@ -77,7 +76,7 @@ const SingoloUtente = ({ utente }) => {
 
                 </Col>
               )}
-            </>
+            </div>
           );
         })}
       </Row>

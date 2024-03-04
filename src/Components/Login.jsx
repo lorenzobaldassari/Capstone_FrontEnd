@@ -31,7 +31,6 @@ const Login = () => {
         //   type: LOGIN,
         // });
         let data = await response.json();
-        console.log("token " + data.tipo);
         navigate("/wellcome");
         sessionStorage.setItem("token", data.token);
         sessionStorage.setItem("uuid", data.uuid);
@@ -60,7 +59,7 @@ const Login = () => {
       >
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex justify-content-center">
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicEmail1">
               <Form.Control
                 className="border border-2 border-primary"
                 type="Email"
