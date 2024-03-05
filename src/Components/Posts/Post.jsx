@@ -51,7 +51,7 @@ const Post = () => {
   };
   useEffect(() => {
     dispatch(getPosts(token));
-    getPosts();
+    // getPosts();
     console.log(posts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [like, count]);
@@ -300,7 +300,7 @@ const Post = () => {
                     <Card.Title>{elem.titolo_post}</Card.Title>
                     <Card.Text>{elem.contenuto}</Card.Text>
                     <div id="customBr1" className="my-0"></div>
-                    <div className="py-1 d-flex align-items-center justify-content-start ">
+                    <div className="py-1 d-flex align-items-start justify-content-start ">
                       <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
                         {/* like button */}
                         <p className="mb-0 me-2">
@@ -364,7 +364,7 @@ const Post = () => {
                         )}
                       </Button>
 
-                      <Button
+                      {/* <Button
                         onClick={() => {
                           setCountFunction();
                           //   if (postid === "") {
@@ -381,17 +381,17 @@ const Post = () => {
                         className="transparent border-0 fs-6 text-dark mb-0"
                       >
                         commenti
-                      </Button>
-                    </div>
+                      </Button> */}
 
-                    <div>
-                      <Commenti
-                        uuidPost={elem.uuid}
-                        postid={elem.uuid}
-                        showCommenta={showCommenta}
-                        setPostIdFunction={setPostIdFunction}
-                        setShowCommentafunction={setShowCommentafunction}
-                      />
+                      <div className="w-100">
+                        <Commenti
+                          uuidPost={elem.uuid}
+                          postid={elem.uuid}
+                          showCommenta={showCommenta}
+                          setPostIdFunction={setPostIdFunction}
+                          setShowCommentafunction={setShowCommentafunction}
+                        />
+                      </div>
                     </div>
                   </Card.Body>
                 </Card>

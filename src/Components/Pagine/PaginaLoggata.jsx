@@ -7,6 +7,8 @@ import ModifyPostModal from "../Posts/ModifyPostModal";
 import { BiSolidLike } from "react-icons/bi";
 import { BiLike } from "react-icons/bi";
 import Commenti from "../Commenti/Comment";
+import ImageSettngsModal from "../Utenti/ImageSettingsModal";
+import ImageCoverModal from "../Utenti/ImageCoverModal";
 
 const PaginaLoggata = () => {
   const id = sessionStorage.getItem("uuid");
@@ -16,10 +18,28 @@ const PaginaLoggata = () => {
   const ID = sessionStorage.getItem("uuid");
   const likeUrl = "/posts/";
   let [like, setLike] = useState(0);
-
+  let [imageSetting, setimageSetting] = useState(false);
+  const setImageSettingFunction = () => {
+    setimageSetting(false);
+  };
+  let [coverSetting, setCoverSetting] = useState(false);
+  const setCoverSettingFunction = () => {
+    setCoverSetting(false);
+  };
+  const getPostsFunction = () => {
+    getPosts();
+    getPagina();
+  };
   const token = sessionStorage.getItem("token");
   let [modifyShow, setModifyShow] = useState("");
   let [createShow, setCreateShow] = useState("");
+  let [postid, setPostid] = useState("");
+  const setPostIdFunction = (par) => {
+    setPostid(par);
+  };
+  const getPaginaFunction = () => {
+    getPagina();
+  };
   const [posts, setPosts] = useState([]);
 
   const modifyShowFalse = (string) => {
@@ -38,6 +58,7 @@ const PaginaLoggata = () => {
       });
       if (response.ok) {
         let date = await response.json();
+        sessionStorage.setItem("immagine", date.immagine);
         setData(date);
       } else throw new Error();
     } catch (error) {
@@ -114,14 +135,30 @@ const PaginaLoggata = () => {
       console.log("non hai ancora il mi piace");
     }
   };
-
-  getPagina();
-  getPosts();
-  useEffect(() => {}, [like]);
+  useEffect(() => {
+    getPagina();
+    getPosts();
+  }, [like]);
 
   return (
     <>
-      <Container fluid className="p-0  footerMargin ">
+      <Container fluid className="p-0  position-relative   footerMargin ">
+        {imageSetting && (
+          <div className="position-absolute imageCreatePosition z-index-1500">
+            <ImageSettngsModal
+              setImageSettingFunction={setImageSettingFunction}
+              getPostsFunction={getPaginaFunction}
+            />
+          </div>
+        )}
+        {coverSetting && (
+          <div className="position-absolute imageCreatePosition z-index-1500">
+            <ImageCoverModal
+              setCoverSettingFunction={setCoverSettingFunction}
+              getPostsFunction={getPaginaFunction}
+            />
+          </div>
+        )}
         <Row className="justify-content-center p-0 mx-0 mb-5   ">
           <Col
             xs={12}
@@ -132,7 +169,10 @@ const PaginaLoggata = () => {
             <div className="shadowBlack pb-5 d-flex flex-column align-items-start">
               <div className="w-100">
                 <img
-                  src="https://www.nanopress.it/wp-content/uploads/2018/02/Copertine-Facebook-gratis.jpg"
+                  onClick={() => {
+                    setCoverSetting(true);
+                  }}
+                  src={data.immagine_di_copertina}
                   className="w-100"
                   height={300}
                   alt=""
@@ -140,11 +180,19 @@ const PaginaLoggata = () => {
               </div>
               <div className="d-flex align-items-center ">
                 <div className="p-4 ">
-                  <img
-                    src={data.immagine}
-                    className="circle"
-                    alt="immagine della scuola"
-                  />
+                  <button
+                    className="border-0 bg-none"
+                    onClick={() => {
+                      setimageSetting(true);
+                      console.log(imageSetting);
+                    }}
+                  >
+                    <img
+                      src={data.immagine}
+                      className="circle"
+                      alt="immagine della scuola"
+                    />
+                  </button>
                 </div>
                 <h4 className="display-4 fw-bold text-black">{data.titolo}</h4>
               </div>
@@ -228,7 +276,7 @@ const PaginaLoggata = () => {
                           <Card.Title>{posts.titolo_post}</Card.Title>
                           <Card.Text>{posts.contenuto}</Card.Text>
                           <div id="customBr1" className="my-0"></div>
-                          <div className="py-1 d-flex align-items-center justify-content-start ">
+                          <div className="py-1 d-flex align-items-start justify-content-start ">
                             <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
                               {/* like button */}
                               <p className="mb-0 me-2">
@@ -293,13 +341,17 @@ const PaginaLoggata = () => {
                               )}
                             </Button>
 
-                            <Button className="transparent border-0 text-dark mb-0">
+                            {/* <Button className="transparent border-0 text-dark mb-0">
                               commenta
-                            </Button>
+                            </Button> */}
+                            <div className="w-100">
+                              <Commenti
+                                uuidPost={posts.uuid}
+                                postid={posts.uuid}
+                                setPostIdFunction={setPostIdFunction}
+                              />
+                            </div>
                           </div>
-                          <div>
-                      <Commenti uuidPost={posts.uuid}/>
-                    </div>
                         </Card.Body>
                       </Card>
                       {modifyShow === posts.uuid && (

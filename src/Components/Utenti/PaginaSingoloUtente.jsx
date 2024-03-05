@@ -22,6 +22,10 @@ const PaginaSingoloUtente = () => {
   const token = sessionStorage.getItem("token");
   const [data, setData] = useState({});
   const [posts, setPosts] = useState([]);
+  let [postid, setPostid] = useState("");
+  const setPostIdFunction = (par) => {
+    setPostid(par);
+  };
   let [modifyShow, setModifyShow] = useState("");
   let [createShow, setCreateShow] = useState("");
 
@@ -117,9 +121,10 @@ const PaginaSingoloUtente = () => {
     }
   };
 
-  getUtente();
-  getPosts();
-  useEffect(() => {}, [like]);
+  useEffect(() => {
+    getUtente();
+    getPosts();
+  }, [like]);
 
   return (
     <>
@@ -134,7 +139,7 @@ const PaginaSingoloUtente = () => {
             <div className="shadowBlack pb-5 d-flex flex-column align-items-start">
               <div className="w-100">
                 <img
-                  src="https://www.nanopress.it/wp-content/uploads/2018/02/Copertine-Facebook-gratis.jpg"
+                  src={data.immagine_di_copertina}
                   className="w-100"
                   height={300}
                   alt="immagine dell'utente"
@@ -245,7 +250,7 @@ const PaginaSingoloUtente = () => {
                           <Card.Text>{posts.contenuto}</Card.Text>
                           <div id="customBr1" className="my-0"></div>
                           <div className="py-1 d-flex align-items-center justify-content-start ">
-                            <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
+                            <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-start me-5">
                               {/* like button */}
                               <p className="mb-0 me-2">
                                 {posts.likes_utente.length +
@@ -308,13 +313,17 @@ const PaginaSingoloUtente = () => {
                                 />
                               )}
                             </Button>
-
+                            {/* 
                             <Button className="transparent border-0 text-dark mb-0">
                               commenta
-                            </Button>
-                          </div>
-                          <div>
-                            <Commenti uuidPost={posts.uuid} />
+                            </Button> */}
+                            <div className="w-100">
+                              <Commenti
+                                uuidPost={posts.uuid}
+                                postid={posts.uuid}
+                                setPostIdFunction={setPostIdFunction}
+                              />
+                            </div>
                           </div>
                         </Card.Body>
                       </Card>

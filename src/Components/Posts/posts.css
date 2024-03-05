@@ -68,3 +68,11 @@
 .noBorder:focus {
   outline: none !important;
 }
+.z-index-1500 {
+  z-index: 1500;
+}
+
+.imageCreatePosition {
+  top: 12%;
+  left: 50%;
+}

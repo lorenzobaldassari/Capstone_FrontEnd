@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { BiSolidLike } from "react-icons/bi";
 import { BiLike } from "react-icons/bi";
 import Commenti from "../Commenti/Comment";
+import ImageSettngsModal from "./ImageSettingsModal";
+import ImageCoverModal from "./ImageCoverModal";
 
 const UtenteLoggato = () => {
   const id = sessionStorage.getItem("uuid");
@@ -13,6 +15,10 @@ const UtenteLoggato = () => {
   const tipo = sessionStorage.getItem("tipo");
   const ID = sessionStorage.getItem("uuid");
   const likeUrl = "/posts/";
+  let [coverSetting, setCoverSetting] = useState(false);
+  const setCoverSettingFunction = () => {
+    setCoverSetting(false);
+  };
   let [like, setLike] = useState(0);
   const postUrl = "/utenti/";
   const token = sessionStorage.getItem("token");
@@ -21,7 +27,19 @@ const UtenteLoggato = () => {
   const [showCreatePagina, setShowCreatePagina] = useState(false);
   const [posts, setPosts] = useState([]);
   let [modifyShow, setModifyShow] = useState("");
+  let [postid, setPostid] = useState("");
+  const setPostIdFunction = (par) => {
+    setPostid(par);
+  };
+  const getPostsFunction = () => {
+    getPosts();
+    getUtente();
+  };
   let [createShow, setCreateShow] = useState("");
+  let [imageSetting, setimageSetting] = useState(false);
+  const setImageSettingFunction = () => {
+    setimageSetting(false);
+  };
 
   const modifyShowFalse = (string) => {
     setModifyShow(string);
@@ -39,7 +57,9 @@ const UtenteLoggato = () => {
       });
       if (response.ok) {
         let date = await response.json();
+        sessionStorage.setItem("immagine", date.immagine_di_profilo);
         setData(date);
+        console.log(date);
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -117,13 +137,30 @@ const UtenteLoggato = () => {
     }
   };
 
-  getUtente();
-  getPosts();
-  useEffect(() => {}, [like]);
+  useEffect(() => {
+    getUtente();
+    getPosts();
+  }, [like]);
 
   return (
     <>
-      <Container fluid className="p-0 footerMargin  ">
+      <Container fluid className="p-0 footerMargin position-relative  ">
+        {imageSetting && (
+          <div className="position-absolute imageCreatePosition z-index-1500">
+            <ImageSettngsModal
+              setImageSettingFunction={setImageSettingFunction}
+              getPostsFunction={getPostsFunction}
+            />
+          </div>
+        )}
+        {coverSetting && (
+          <div className="position-absolute imageCreatePosition z-index-1500">
+            <ImageCoverModal
+              setCoverSettingFunction={setCoverSettingFunction}
+              getPostsFunction={getPostsFunction}
+            />
+          </div>
+        )}
         <Row className="justify-content-center p-0 mx-0   ">
           <Col
             xs={12}
@@ -134,20 +171,31 @@ const UtenteLoggato = () => {
             <div className="shadowBlack pb-5 d-flex flex-column align-items-start">
               <div className="w-100">
                 <img
-                  src="https://www.nanopress.it/wp-content/uploads/2018/02/Copertine-Facebook-gratis.jpg"
+                  onClick={() => {
+                    setCoverSetting(true);
+                  }}
+                  src={data.immagine_di_copertina}
                   className="w-100"
                   height={300}
-                  alt="immagine dell'utente"
+                  alt="immagine di copertina"
                 />
               </div>
               <div className="d-flex align-items-center justify-content-between w-100 ">
                 <div className="d-flex align-items-center">
                   <div className="p-4 ">
-                    <img
-                      src={data.immagine_di_profilo}
-                      className="circle"
-                      alt="immagine della scuola"
-                    />
+                    <button
+                      className="border-0 bg-none"
+                      onClick={() => {
+                        setimageSetting(true);
+                        console.log(imageSetting);
+                      }}
+                    >
+                      <img
+                        src={data.immagine_di_profilo}
+                        className="circle"
+                        alt="immagine della scuola"
+                      />
+                    </button>
                   </div>
                   <h4 className="display-4 fw-bold text-black">
                     {data.nome} {data.cognome}
@@ -242,7 +290,8 @@ const UtenteLoggato = () => {
                           <Card.Title>{posts.titolo_post}</Card.Title>
                           <Card.Text>{posts.contenuto}</Card.Text>
                           <div id="customBr1" className="my-0"></div>
-                          <div className="py-1 d-flex align-items-center justify-content-start ">
+
+                          <div className="py-1 d-flex align-items-start justify-content-start ">
                             <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
                               {/* like button */}
                               <p className="mb-0 me-2">
@@ -307,12 +356,16 @@ const UtenteLoggato = () => {
                               )}
                             </Button>
 
-                            <Button className="transparent border-0 text-dark mb-0">
+                            {/* <Button className="transparent border-0 text-dark mb-0">
                               commenta
-                            </Button>
-                          </div>
-                          <div>
-                            <Commenti uuidPost={posts.uuid} />
+                            </Button> */}
+                            <div className="w-100">
+                              <Commenti
+                                uuidPost={posts.uuid}
+                                postid={posts.uuid}
+                                setPostIdFunction={setPostIdFunction}
+                              />
+                            </div>
                           </div>
                         </Card.Body>
                       </Card>
