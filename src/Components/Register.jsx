@@ -1,13 +1,9 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const url = "localhost3010";
-const registerUrl = "/auth/register";
-const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTFlZDYyOS0xYmY1LTRiMWEtYjVkMi05YTc4MWY4NGZiZTciLCJpYXQiOjE3MDgwODU0MjUsImV4cCI6MTcwODY5MDIyNX0.Oroj961bXSqaSqE0ooJpP5bwpikQkfTpBKrDBO9eAaM";
-
+const url = "http://localhost:3010";
 const Register = () => {
   const [registerPayload, setRegisterPayload] = useState({
     nome: "",
@@ -16,23 +12,26 @@ const Register = () => {
     password: "",
   });
 
-  const register = () => {
-    fetch(url + registerUrl, {
-      authorization: "bearer " + token,
-      method: "POST",
-      body: JSON.stringify(registerPayload),
-    })
-      .then((response) => {
-        if (response.ok) {
-          const data = response.json();
-          console.log(data);
-        } else throw new Error();
-      })
-      .catch((error) => {
-        alert("errore nella fetch di registrazione " + error);
-      });
-  };
+  const navigate = useNavigate();
 
+  const register = async () => {
+    console.log(url + "/auth/register");
+    try {
+      let response = await fetch(url + "/auth/register", {
+        headers: {
+          "Content-type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(registerPayload),
+      });
+      if (response.ok) {
+        alert("registrazione effettuata inviato");
+        navigate("");
+      } else throw new Error();
+    } catch (error) {
+      alert("errore nella registrazione " + error);
+    }
+  };
   return (
     <>
       <Form

@@ -7,7 +7,7 @@ const Url = "http://localhost:3010";
 const posterl = "/posts";
 const token = sessionStorage.getItem("token");
 
-const CreatPostModal = ({ createShowFalse }) => {
+const CreatPostModal = ({ createShowFalse, getPostsFunc }) => {
   const [postPayload, setPostPayload] = useState({
     titolo: "",
     contenuto: "",
@@ -27,6 +27,7 @@ const CreatPostModal = ({ createShowFalse }) => {
         console.log("oggetto inviato", response);
         if (response.ok) {
           alert("post creato!");
+          getPostsFunc();
         } else throw new Error();
       })
       .catch((error) => {
@@ -38,12 +39,12 @@ const CreatPostModal = ({ createShowFalse }) => {
   return (
     <>
       <div className="position-relative  ">
-        <Form className="pt-5"
+        <Form
+          className="pt-5"
           onSubmit={(e) => {
             e.preventDefault();
             createPost();
             createShowFalse(false);
-            // plus1RefreshaAction();
           }}
         >
           <Card.Body className="pb-0  ">
@@ -102,7 +103,8 @@ const CreatPostModal = ({ createShowFalse }) => {
         </Form>
         <div>
           <div className="d-flex justify-content-between align-items-center mb-2 mx-1 position-absolute top-0 end-0 ">
-            <button className="bg-secondary border-0"
+            <button
+              className="bg-secondary border-0"
               onClick={() => {
                 createShowFalse(false);
               }}

@@ -12,23 +12,35 @@ import "./posts.css";
 import Commenti from "../Commenti/Comment";
 
 const Post = () => {
-  const commentUrl = "/commenti/posts/";
-  const token = sessionStorage.getItem("token");
-  const tipo = sessionStorage.getItem("tipo");
   const ID = sessionStorage.getItem("uuid");
-  const nome = sessionStorage.getItem("nome");
-  const cognome = sessionStorage.getItem("cognome");
   const immagine = sessionStorage.getItem("immagine");
-  const url = "http://localhost:3010";
+  const tipo = sessionStorage.getItem("tipo");
   const postUrl = "/posts/";
-  const dispatch = useDispatch();
-  let [likeList, setLikeList] = useState();
+  const url = "http://localhost:3010";
+  const getPosts = async () => {
+    try {
+      let response = await fetch(url + "/posts", {
+        headers: {
+          authorization: "bearer " + token,
+        },
+      });
+      if (response.ok) {
+        let date = await response.json();
+        setPosts(date);
+      } else throw new Error();
+    } catch (error) {
+      alert("errore nella fetch di posts " + error);
+    }
+  };
+
   let [modifyShow, setModifyShow] = useState("");
   let [createShow, setCreateShow] = useState("");
   let [count, setCount] = useState(0);
   let setCountFunction = () => {
     setCount(count + 1);
   };
+
+  const token = sessionStorage.getItem("token");
   let [like, setLike] = useState(0);
   let [postid, setPostid] = useState("");
   const setPostIdFunction = (par) => {
@@ -40,21 +52,20 @@ const Post = () => {
   };
 
   const uuid = sessionStorage.getItem("uuid");
-  const plus1Refresh = () => {
-    window.location.reload(true);
-  };
+
   const createShowFalse = (string) => {
     setCreateShow(string);
   };
   const modifyShowFalse = (string) => {
     setModifyShow(string);
   };
+  let [posts, setPosts] = useState([]);
+
+
+
   useEffect(() => {
-    dispatch(getPosts(token));
-    // getPosts();
-    console.log(posts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [like, count]);
+    getPosts();
+  }, []);
 
   const likes = async (id) => {
     try {
@@ -104,6 +115,7 @@ const Post = () => {
       .then((response) => {
         if (response.ok) {
           alert("post CANCELLATO!");
+          getPosts()
         } else throw new Error();
       })
       .catch((error) => {
@@ -112,28 +124,10 @@ const Post = () => {
       });
   };
 
-  const deletepost1 = async () => {
-    try {
-      let response = await fetch(url + postUrl + uuid + "/me", {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "bearer " + token,
-        },
-      });
-      if (response.ok) {
-        alert("post CANCELLATO!");
-      } else {
-        throw new Error();
-      }
-    } catch (error) {
-      alert("errore nella fetch di login " + error);
-    }
-  };
+  const getPostsFunc=()=>{
+    getPosts()
+  }
 
-  let posts = useSelector((state) => state.post.posts);
-
-  console.log("likelist", likeList);
   return (
     <>
       <Row className="my-4 g-3 mx-2 w-90 position-relative">
@@ -194,7 +188,6 @@ const Post = () => {
                               }
                             }}
                           >
-                            {/* <BsXLg /> */}
                             Elimina
                           </button>
                         </Dropdown.Item>
@@ -364,25 +357,6 @@ const Post = () => {
                         )}
                       </Button>
 
-                      {/* <Button
-                        onClick={() => {
-                          setCountFunction();
-                          //   if (postid === "") {
-                          //     setPostid(elem.uuid);
-                          //   } else {
-                          //     setPostid("");
-                          //   }
-                          //   if (showCommenta === "") {
-                          //     setShowCommenta(elem.uuid);
-                          //   } else {
-                          //     setShowCommenta("");
-                          //   }
-                        }}
-                        className="transparent border-0 fs-6 text-dark mb-0"
-                      >
-                        commenti
-                      </Button> */}
-
                       <div className="w-100">
                         <Commenti
                           uuidPost={elem.uuid}
@@ -400,9 +374,9 @@ const Post = () => {
               {modifyShow === elem.uuid && (
                 <div className="position-absolute positionModify w-90 bg-white p-5 z-index-50 border border-2 border-black shadow  ">
                   <ModifyPostModal
-                    plus1RefreshaAction={plus1Refresh}
                     modifyShowFalse={() => modifyShowFalse()}
                     post={elem}
+                    getPostsFunc={getPostsFunc}
                   />
                 </div>
               )}
@@ -412,8 +386,8 @@ const Post = () => {
         {createShow === true && (
           <div className="position-fixed w-90 bg-white p-5 z-index-50 border border-2 border-black shadow ">
             <CreatPostModal
-              plus1RefreshaAction={plus1Refresh}
               createShowFalse={createShowFalse}
+              getPostsFunc={getPostsFunc}
             />
           </div>
         )}

@@ -4,18 +4,12 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const url = "http://localhost:3010";
-const commentUrl = "/commenti/posts/";
-const immagine = sessionStorage.getItem("immagine");
-const token = sessionStorage.getItem("token");
-const ID = sessionStorage.getItem("uuid");
-const Commenti = ({
-  uuidPost,
-  postid,
-  showCommenta,
-  setPostIdFunction,
-  setShowCommentafunction,
-}) => {
+const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
+  const url = "http://localhost:3010";
+  const commentUrl = "/commenti/posts/";
+  const immagine = sessionStorage.getItem("immagine");
+  const token = sessionStorage.getItem("token");
+  const ID = sessionStorage.getItem("uuid");
   let [count, setCount] = useState(0);
   let [numberOfComments, setNumberOfComments] = useState();
   let setCountFunction = () => {
@@ -35,11 +29,10 @@ const Commenti = ({
       if (response.ok) {
         let date = await response.json();
         setNumberOfComments(date.length);
-        console.log(date);
         setData(date);
       } else throw new Error();
     } catch (error) {
-      alert("errore nella fetch di posts " + error);
+      alert("errore nella fetch di commento qui " + error);
     }
   };
 
@@ -76,13 +69,11 @@ const Commenti = ({
       } else throw new Error();
     } catch (error) {
       alert("errore nella delete " + error);
- 
     }
   };
 
   useEffect(() => {
     getComments();
-    console.log("refreshato");
   }, [count]);
 
   return (

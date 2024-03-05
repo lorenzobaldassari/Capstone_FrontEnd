@@ -6,7 +6,11 @@ const url = "http://localhost:3010";
 const postUrl = "/posts/";
 const token = sessionStorage.getItem("token");
 
-const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
+const ModifyPostModal = ({
+  post,
+  modifyShowFalse,
+  getPostsFunc,
+}) => {
   const [postPayload, setPostPayload] = useState({
     titolo: post.titolo_post,
     contenuto: post.contenuto,
@@ -26,6 +30,7 @@ const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
         if (response.ok) {
           console.log(response.json());
           alert("post MODIFICATO!");
+          getPostsFunc();
         } else throw new Error();
       })
       .catch((error) => {
@@ -36,12 +41,12 @@ const ModifyPostModal = ({ post, modifyShowFalse, plus1RefreshaAction }) => {
   return (
     <>
       <div className="position-relative">
-        <Form className="pt-5"
+        <Form
+          className="pt-5"
           onSubmit={(e) => {
             e.preventDefault();
             modifyPost();
             modifyShowFalse("");
-            // plus1RefreshaAction();
           }}
         >
           <Card.Body className="pb-0 ">

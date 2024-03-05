@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Url = "http://localhost:3010";
-const posterl = "/pagine";
-const token = sessionStorage.getItem("token");
-const id = sessionStorage.getItem("uuid");
-
-const CreatePaginaModal = ({ setShowFunc }) => {
+const CreatePaginaModal = () => {
+  const Url = "http://localhost:3010";
+  const posterl = "/pagine";
+  const token = sessionStorage.getItem("token");
+  const id = sessionStorage.getItem("uuid");
   const [PaginaPayload, setPostPayload] = useState({
     titolo: "",
     descrizione: "",
@@ -16,6 +15,7 @@ const CreatePaginaModal = ({ setShowFunc }) => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const createPagina = () => {
     fetch(Url + posterl, {
@@ -30,6 +30,7 @@ const CreatePaginaModal = ({ setShowFunc }) => {
         console.log("oggetto inviato", response);
         if (response.ok) {
           alert("pagina creata!");
+          navigate("/home");
         } else throw new Error();
       })
       .catch((error) => {
@@ -55,7 +56,6 @@ const CreatePaginaModal = ({ setShowFunc }) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 createPagina();
-                setShowFunc(false);
               }}
             >
               <Form.Group className="mb-3">

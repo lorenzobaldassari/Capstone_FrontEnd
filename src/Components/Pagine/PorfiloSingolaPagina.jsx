@@ -75,6 +75,7 @@ const ProfiloSingolaPagina = () => {
       .then((response) => {
         if (response.ok) {
           alert("post CANCELLATO!");
+          getPosts();
         } else throw new Error();
       })
       .catch((error) => {
@@ -124,6 +125,10 @@ const ProfiloSingolaPagina = () => {
     getPosts();
   }, [like]);
 
+  const getPostsFunc = () => {
+    getPosts();
+  };
+
   return (
     <>
       <Container fluid className="p-0 footerMargin ">
@@ -135,10 +140,10 @@ const ProfiloSingolaPagina = () => {
             className="bg-white px-0 mb-4 rounded-3"
           >
             <div className="shadowBlack pb-5 d-flex flex-column align-items-start">
-              <div className="w-100">
+              <div className="w-100 d-flex justify-content-center w-100">
                 <img
                   src={data.immagine_di_copertina}
-                  className="w-100"
+                  // className="w-100"
                   height={300}
                   alt=""
                 />
@@ -317,6 +322,7 @@ const ProfiloSingolaPagina = () => {
                           <ModifyPostModal
                             modifyShowFalse={() => modifyShowFalse()}
                             post={posts}
+                            getPostsFunc={getPostsFunc}
                           />
                         </div>
                       )}
