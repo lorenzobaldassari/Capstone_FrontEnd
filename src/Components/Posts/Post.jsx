@@ -7,19 +7,38 @@ import CreatPostModal from "./CreatePostModal";
 import ModifyPostModal from "./ModifyPostModal";
 import { Link } from "react-router-dom";
 import { BiSolidLike } from "react-icons/bi";
+import { BiLike } from "react-icons/bi";
 import "./posts.css";
+import Commenti from "../Commenti/Comment";
 
 const Post = () => {
+  const commentUrl = "/commenti/posts/";
   const token = sessionStorage.getItem("token");
   const tipo = sessionStorage.getItem("tipo");
+  const ID = sessionStorage.getItem("uuid");
   const nome = sessionStorage.getItem("nome");
   const cognome = sessionStorage.getItem("cognome");
   const immagine = sessionStorage.getItem("immagine");
   const url = "http://localhost:3010";
   const postUrl = "/posts/";
   const dispatch = useDispatch();
+  let [likeList, setLikeList] = useState();
   let [modifyShow, setModifyShow] = useState("");
   let [createShow, setCreateShow] = useState("");
+  let [count, setCount] = useState(0);
+  let setCountFunction = () => {
+    setCount(count + 1);
+  };
+  let [like, setLike] = useState(0);
+  let [postid, setPostid] = useState("");
+  const setPostIdFunction = (par) => {
+    setPostid(par);
+  };
+  let [showCommenta, setShowCommenta] = useState("");
+  const setShowCommentafunction = (par) => {
+    setShowCommenta(par);
+  };
+
   const uuid = sessionStorage.getItem("uuid");
   const plus1Refresh = () => {
     window.location.reload(true);
@@ -33,8 +52,46 @@ const Post = () => {
   useEffect(() => {
     dispatch(getPosts(token));
     getPosts();
+    console.log(posts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [like, count]);
+
+  const likes = async (id) => {
+    try {
+      let response = await fetch(url + postUrl + "like/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "bearer " + token,
+        },
+      });
+      if (response.ok) {
+        console.log("like messo");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log("hai gia messo mi piace");
+    }
+  };
+  const dislikes = async (id) => {
+    try {
+      let response = await fetch(url + postUrl + "dislike/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "bearer " + token,
+        },
+      });
+      if (response.ok) {
+        console.log("like tolto");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log("non hai ancora il mi piace");
+    }
+  };
 
   const deletePost = (uuid) => {
     fetch("http://localhost:3010/posts/" + uuid + "/me", {
@@ -76,6 +133,7 @@ const Post = () => {
 
   let posts = useSelector((state) => state.post.posts);
 
+  console.log("likelist", likeList);
   return (
     <>
       <Row className="my-4 g-3 mx-2 w-90 position-relative">
@@ -243,19 +301,97 @@ const Post = () => {
                     <Card.Text>{elem.contenuto}</Card.Text>
                     <div id="customBr1" className="my-0"></div>
                     <div className="py-1 d-flex align-items-center justify-content-start ">
-                      <Button className="transparent border-0 text-dark mb-0 fs-5 d-flex align-items-center me-5">
-                        <BiSolidLike />
-                        <p className="mb-0 ms-2">12</p>
+                      <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
+                        {/* like button */}
+                        <p className="mb-0 me-2">
+                          {elem.likes_utente.length + elem.likes_pagina.length}
+                        </p>
+                        {tipo === "utente" &&
+                          ((elem.utentePost &&
+                            elem.likes_utente.filter(
+                              (lambda) => lambda.utente_uuid === ID
+                            ).length === 0) ||
+                            (elem.paginaPost &&
+                              elem.likes_utente.filter(
+                                (lambda) => lambda.utente_uuid === ID
+                              ).length === 0)) && (
+                            <BiLike
+                              onClick={() => {
+                                likes(elem.uuid);
+                                setLike(like + 1);
+                              }}
+                            />
+                          )}
+                        {tipo === "pagina" &&
+                          ((elem.utentePost &&
+                            elem.likes_pagina.filter(
+                              (lambda) => lambda.id === ID
+                            ).length === 0) ||
+                            (elem.paginaPost &&
+                              elem.likes_pagina.filter(
+                                (lambda) => lambda.id === ID
+                              ).length === 0)) && (
+                            <BiLike
+                              onClick={() => {
+                                likes(elem.uuid);
+                                setLike(like + 1);
+                              }}
+                            />
+                          )}
+
+                        {((elem.utentePost &&
+                          elem.likes_utente.filter(
+                            (lambda) => lambda.utente_uuid === ID
+                          ).length > 0) ||
+                          (elem.utentePost &&
+                            elem.likes_pagina.filter(
+                              (lambda) => lambda.id === ID
+                            ).length > 0) ||
+                          (elem.paginaPost &&
+                            elem.likes_utente.filter(
+                              (lambda) => lambda.utente_uuid === ID
+                            ).length > 0) ||
+                          (elem.paginaPost &&
+                            elem.likes_pagina.filter(
+                              (lambda) => lambda.id === ID
+                            ).length > 0)) && (
+                          <BiSolidLike
+                            onClick={() => {
+                              dislikes(elem.uuid);
+                              setLike(like + 1);
+                            }}
+                          />
+                        )}
                       </Button>
-                      <Button className="transparent border-0 text-dark mb-0">
-                        commenta
+
+                      <Button
+                        onClick={() => {
+                          setCountFunction();
+                          //   if (postid === "") {
+                          //     setPostid(elem.uuid);
+                          //   } else {
+                          //     setPostid("");
+                          //   }
+                          //   if (showCommenta === "") {
+                          //     setShowCommenta(elem.uuid);
+                          //   } else {
+                          //     setShowCommenta("");
+                          //   }
+                        }}
+                        className="transparent border-0 fs-6 text-dark mb-0"
+                      >
+                        commenti
                       </Button>
-                      {/* <Button className="transparent border-0 text-dark mb-0">
-                        Condividi
-                      </Button>
-                      <Button className="transparent border-0 text-dark mb-0">
-                        invia
-                      </Button> */}
+                    </div>
+
+                    <div>
+                      <Commenti
+                        uuidPost={elem.uuid}
+                        postid={elem.uuid}
+                        showCommenta={showCommenta}
+                        setPostIdFunction={setPostIdFunction}
+                        setShowCommentafunction={setShowCommentafunction}
+                      />
                     </div>
                   </Card.Body>
                 </Card>

@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { loginPaginaAction } from "../redux/action";
 
+const url = "http://localhost:3010";
+
 const LoginPagina = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,8 +15,34 @@ const LoginPagina = () => {
     email: "",
     password: "",
   });
+  const login=async () => {
+    try {
+      let response = await fetch(url + "/auth/login/pagine", {
+        method: "POST",
+        body: JSON.stringify(loginPayload),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      if (response.ok) {
+        navigate("/wellcome");
+        let data = await response.json();
+        console.log("token " + data);
+        sessionStorage.setItem("token", data.token);
+        sessionStorage.setItem("uuid", data.uuid);
+        sessionStorage.setItem("tipo", data.tipo);
+        sessionStorage.setItem("nome", data.nome);
+        sessionStorage.setItem("cognome", data.cognome);
+        sessionStorage.setItem("immagine", data.immagine);
 
-  const auth = useSelector((state) => state.login.auth);
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      alert("dati inseriti non corretti!login fallito " + error);
+    }
+  };
+
   return (
     <>
       <Form
@@ -22,8 +50,7 @@ const LoginPagina = () => {
         id="loginForm"
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(loginPaginaAction(loginPayload));
-          navigate("/wellcome");
+          login()
         }}
       >
         <div className="d-flex flex-column align-items-center justify-content-center">

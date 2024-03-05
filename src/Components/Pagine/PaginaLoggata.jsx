@@ -4,12 +4,18 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import CreatePaginaModal from "./CreatePaginaModal";
 import ModifyPostModal from "../Posts/ModifyPostModal";
+import { BiSolidLike } from "react-icons/bi";
+import { BiLike } from "react-icons/bi";
+import Commenti from "../Commenti/Comment";
 
 const PaginaLoggata = () => {
   const id = sessionStorage.getItem("uuid");
   const url = "http://localhost:3010";
   const postUrl = "/pagine/";
+  const tipo = sessionStorage.getItem("tipo");
   const ID = sessionStorage.getItem("uuid");
+  const likeUrl = "/posts/";
+  let [like, setLike] = useState(0);
 
   const token = sessionStorage.getItem("token");
   let [modifyShow, setModifyShow] = useState("");
@@ -72,16 +78,51 @@ const PaginaLoggata = () => {
         console.log(error);
       });
   };
+  const likes = async (id1) => {
+    try {
+      let response = await fetch(url + likeUrl + "like/" + id1, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "bearer " + token,
+        },
+      });
+      if (response.ok) {
+        console.log("like messo");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log("hai gia messo mi piace");
+    }
+  };
+  const dislikes = async (id2) => {
+    try {
+      let response = await fetch(url + likeUrl + "dislike/" + id2, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "bearer " + token,
+        },
+      });
+      if (response.ok) {
+        console.log("like tolto");
+      } else {
+        throw new Error();
+      }
+    } catch (error) {
+      console.log("non hai ancora il mi piace");
+    }
+  };
 
-  useEffect(() => {
-    getPagina();
-    getPosts();
-  }, []);
+  getPagina();
+  getPosts();
+  useEffect(() => {}, [like]);
 
   return (
     <>
-      <Container fluid className="p-0 m-0 footerMargin ">
-        <Row className="justify-content-center p-0 mx-0   ">
+      <Container fluid className="p-0  footerMargin ">
+        <Row className="justify-content-center p-0 mx-0 mb-5   ">
           <Col
             xs={12}
             xl={12}
@@ -113,7 +154,11 @@ const PaginaLoggata = () => {
               </div>
             </div>
           </Col>
-          <Col xs={10} xl={8} className="mb-4  bg-white px-0 shadowBlack rounded-3">
+          <Col
+            xs={10}
+            xl={8}
+            className="mb-4  bg-white px-0 shadowBlack rounded-3"
+          >
             <Row className=" my-4 justify-content-center ">
               <Col xs={10} xl={10} className="">
                 {posts.map((posts) => {
@@ -183,20 +228,78 @@ const PaginaLoggata = () => {
                           <Card.Title>{posts.titolo_post}</Card.Title>
                           <Card.Text>{posts.contenuto}</Card.Text>
                           <div id="customBr1" className="my-0"></div>
-                          <div className="py-1 d-flex align-items-center justify-content-between ">
-                            <Button className="transparent border-0 text-dark mb-0">
-                              Like
+                          <div className="py-1 d-flex align-items-center justify-content-start ">
+                            <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
+                              {/* like button */}
+                              <p className="mb-0 me-2">
+                                {posts.likes_utente.length +
+                                  posts.likes_pagina.length}
+                              </p>
+                              {tipo === "utente" &&
+                                ((posts.utentePost &&
+                                  posts.likes_utente.filter(
+                                    (lambda) => lambda.utente_uuid === ID
+                                  ).length === 0) ||
+                                  (posts.paginaPost &&
+                                    posts.likes_utente.filter(
+                                      (lambda) => lambda.utente_uuid === ID
+                                    ).length === 0)) && (
+                                  <BiLike
+                                    onClick={() => {
+                                      likes(posts.uuid);
+                                      setLike(like + 1);
+                                    }}
+                                  />
+                                )}
+                              {tipo === "pagina" &&
+                                ((posts.utentePost &&
+                                  posts.likes_pagina.filter(
+                                    (lambda) => lambda.id === ID
+                                  ).length === 0) ||
+                                  (posts.paginaPost &&
+                                    posts.likes_pagina.filter(
+                                      (lambda) => lambda.id === ID
+                                    ).length === 0)) && (
+                                  <BiLike
+                                    onClick={() => {
+                                      likes(posts.uuid);
+                                      setLike(like + 1);
+                                    }}
+                                  />
+                                )}
+
+                              {((posts.utentePost &&
+                                posts.likes_utente.filter(
+                                  (lambda) => lambda.utente_uuid === ID
+                                ).length > 0) ||
+                                (posts.utentePost &&
+                                  posts.likes_pagina.filter(
+                                    (lambda) => lambda.id === ID
+                                  ).length > 0) ||
+                                (posts.paginaPost &&
+                                  posts.likes_utente.filter(
+                                    (lambda) => lambda.utente_uuid === ID
+                                  ).length > 0) ||
+                                (posts.paginaPost &&
+                                  posts.likes_pagina.filter(
+                                    (lambda) => lambda.id === ID
+                                  ).length > 0)) && (
+                                <BiSolidLike
+                                  onClick={() => {
+                                    dislikes(posts.uuid);
+                                    setLike(like + 1);
+                                  }}
+                                />
+                              )}
                             </Button>
+
                             <Button className="transparent border-0 text-dark mb-0">
                               commenta
                             </Button>
-                            <Button className="transparent border-0 text-dark mb-0">
-                              Condividi
-                            </Button>
-                            <Button className="transparent border-0 text-dark mb-0">
-                              invia
-                            </Button>
                           </div>
+                          <div>
+                      <Commenti uuidPost={posts.uuid}/>
+                    </div>
                         </Card.Body>
                       </Card>
                       {modifyShow === posts.uuid && (

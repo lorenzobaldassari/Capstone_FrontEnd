@@ -27,9 +27,6 @@ const Login = () => {
         },
       });
       if (response.ok) {
-        // dispatch({
-        //   type: LOGIN,
-        // });
         let data = await response.json();
         navigate("/wellcome");
         sessionStorage.setItem("token", data.token);

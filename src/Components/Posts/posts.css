@@ -43,3 +43,28 @@
   height: 150px;
   border-radius: 500px;
 }
+.circleComment {
+  width: 40px;
+  height: 40px;
+  border-radius: 500px;
+}
+.circleComment2 {
+  width: 48px;
+  height: 48px;
+  border-radius: 500px;
+}
+.fs-8 {
+  font-size: 1rem !important;
+  /* font-weight: bold; */
+}
+.commentNumber {
+  top: 193.8px;
+  left: 115px;
+  font-size: 0.9rem;
+}
+.w-2 {
+  width: 35px;
+}
+.noBorder:focus {
+  outline: none !important;
+}
