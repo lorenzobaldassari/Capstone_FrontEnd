@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { loginPaginaAction } from "../redux/action";
+import { Alert } from "react-bootstrap";
 
 const url = "http://localhost:3010";
 
@@ -15,7 +16,8 @@ const LoginPagina = () => {
     email: "",
     password: "",
   });
-  const login=async () => {
+  const [alert1, setAlert1] = useState(false);
+  const login = async () => {
     try {
       let response = await fetch(url + "/auth/login/pagine", {
         method: "POST",
@@ -34,12 +36,11 @@ const LoginPagina = () => {
         sessionStorage.setItem("nome", data.nome);
         sessionStorage.setItem("cognome", data.cognome);
         sessionStorage.setItem("immagine", data.immagine);
-
       } else {
         throw new Error();
       }
     } catch (error) {
-      alert("dati inseriti non corretti!login fallito " + error);
+      setAlert1(true);
     }
   };
 
@@ -50,9 +51,14 @@ const LoginPagina = () => {
         id="loginForm"
         onSubmit={(e) => {
           e.preventDefault();
-          login()
+          login();
         }}
       >
+        {alert1 && (
+          <Alert className="bg-fourth border-0 text- fw-bold w-100 text-center">
+            ! credenziali errate !
+          </Alert>
+        )}
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">

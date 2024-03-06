@@ -26,6 +26,14 @@ const ProfiloSingolaPagina = () => {
   const setPostIdFunction = (par) => {
     setPostid(par);
   };
+  const [alert4, setAlert4] = useState(false);
+  const setAlert4Func = (bool) => {
+    setAlert4(bool);
+  };
+  const [alert5, setAlert5] = useState(false);
+  const setAlert5Func = (bool) => {
+    setAlert5(bool);
+  };
   let [createShow, setCreateShow] = useState("");
   const modifyShowFalse = (string) => {
     setModifyShow(string);
@@ -164,9 +172,13 @@ const ProfiloSingolaPagina = () => {
                 <p className="fs-5">{data.descrizione}</p>
               </div>
               <div className="ms-5">
-                <p className="fs-5">{data.provincia},{data.citta},{data.indirizzo}</p>
+                <p className="fs-5">
+                  {data.provincia},{data.citta},{data.indirizzo}
+                </p>
               </div>
-                <a className="ms-5" href={data.link_sito}>{data.link_sito}</a>
+              <a className="ms-5" href={data.link_sito}>
+                {data.link_sito}
+              </a>
             </div>
           </Col>
           <Col
@@ -317,6 +329,8 @@ const ProfiloSingolaPagina = () => {
                                 uuidPost={posts.uuid}
                                 postid={posts.uuid}
                                 setPostIdFunction={setPostIdFunction}
+                                setAlert4Func={setAlert4Func}
+                                setAlert5Func={setAlert5Func}
                               />
                             </div>
                           </div>

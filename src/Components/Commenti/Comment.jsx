@@ -4,9 +4,13 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
-
-
-const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
+const Commenti = ({
+  uuidPost,
+  postid,
+  setPostIdFunction,
+  setAlert4Func,
+  setAlert5Func,
+}) => {
   const url = "http://localhost:3010";
   const commentUrl = "/commenti/posts/";
   const immagine = sessionStorage.getItem("immagine");
@@ -14,15 +18,16 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
   const ID = sessionStorage.getItem("uuid");
   let [count, setCount] = useState(0);
   let [numberOfComments, setNumberOfComments] = useState();
-  
+
   let setCountFunction = () => {
     setCount(count + 1);
   };
   const [data, setData] = useState([]);
+  const [pagina, setPagina] = useState([]);
   const [payload, setPayload] = useState({
     contenuto: "",
   });
-  let pageSize = 3;
+  const [pageSize, setPageSize] = useState(3);
 
   const getComments = async () => {
     try {
@@ -37,8 +42,9 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
       if (response.ok) {
         let date = await response.json();
         setNumberOfComments(date.content.length);
-        // console.log(date.content.length);
+        console.log(date.totalElements);
         setData(date.content);
+        setPagina(date.totalElements);
       } else throw new Error();
     } catch (error) {
       // alert("errore nella fetch di commento qui " + error);
@@ -56,8 +62,15 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
         body: JSON.stringify(payload),
       });
       if (response.ok) {
-        alert("commento inviato");
-        getComments()
+        // alert("commento inviato");
+        setAlert4Func(true);
+        setTimeout(() => {
+          setAlert4Func(false);
+        }, 2000);
+        getComments();
+        // setPayload({
+        //   contenuto: "",
+        // });
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -74,8 +87,14 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
         method: "DELETE",
       });
       if (response.ok) {
-        alert("commento cancellato");
+        console.log("ciao");
+        // alert("commento cancellato");
+        setAlert5Func(true);
+        setTimeout(() => {
+          setAlert5Func(false);
+        }, 2000);
         getComments();
+        console.log("ciao");
       } else throw new Error();
     } catch (error) {
       alert("errore nella delete " + error);
@@ -88,7 +107,7 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
 
   return (
     <div>
-      <p className="mb-0 mt-2">{numberOfComments} commenti</p>
+      <p className="mb-0 mt-2">{pagina} commenti</p>
       <Container className="  mt-3 w-100">
         <Row className=" g-2 justify-content-center mb-4 w-100">
           <div className="d-flex align-items-start mb-4 w-100">
@@ -119,13 +138,17 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
                       contenuto: e.target.value,
                     });
                   }}
+                  value={payload.contenuto}
                   type="text"
                   id="22"
                   className="w-100 border-0 noBorder"
                   placeholder="Commenta"
                 />
               </Button>
-              <Button type="submit" className="rounded-5 ms-1 mt-2 fs-8">
+              <Button
+                type="submit"
+                className=" fw-bold rounded-5 ms-1 mt-2 fs-8"
+              >
                 pubblica
               </Button>
             </form>
@@ -204,22 +227,22 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
               </Col>
             );
           })}
-          {pageSize === data.length && data.length !== 0&& (
+          {pageSize < pagina && (
             <Button
-              className="bg-none border-0 text-primary"
+              className="fw-bold bg-none border-0 text-primary"
               onClick={() => {
-                pageSize = pageSize + 3;
+                setPageSize(pageSize + 3);
                 getComments();
               }}
             >
               mostra altro
             </Button>
           )}
-          {pageSize < data.length && (
+          {pageSize >= pagina && pageSize > 3 && (
             <Button
-              className="bg-none border-0 text-primary"
+              className="fw-bold bg-none border-0 text-primary"
               onClick={() => {
-                pageSize = 3;
+                setPageSize(3);
                 getComments();
               }}
             >

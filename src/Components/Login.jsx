@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { loginAction } from "../redux/action";
+import { Alert } from "react-bootstrap";
 const token =
   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZTFlZDYyOS0xYmY1LTRiMWEtYjVkMi05YTc4MWY4NGZiZTciLCJpYXQiOjE3MDgwODU0MjUsImV4cCI6MTcwODY5MDIyNX0.Oroj961bXSqaSqE0ooJpP5bwpikQkfTpBKrDBO9eAaM";
 
@@ -16,6 +17,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [alert1, setAlert1] = useState(false);
 
   const login = async () => {
     try {
@@ -39,7 +41,7 @@ const Login = () => {
         throw new Error();
       }
     } catch (error) {
-      alert("dati inseriti non corretti!login fallito " + error);
+      setAlert1(true);
     }
   };
 
@@ -54,6 +56,11 @@ const Login = () => {
           login();
         }}
       >
+        {alert1 && (
+          <Alert className="bg-fourth border-0 text- fw-bold w-100 text-center">
+            ! credenziali errate !
+          </Alert>
+        )}
         <div className="d-flex flex-column align-items-center justify-content-center">
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail1">
@@ -72,6 +79,7 @@ const Login = () => {
               />
             </Form.Group>
           </div>
+
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control

@@ -10,7 +10,7 @@ const Home = () => {
         <Row className=" justify-content-center">
           <Col
             xs={12}
-            xxl={8}
+            xxl={6}
             className="p-0 d-flex flex-column align-items-center "
           >
             <Post />

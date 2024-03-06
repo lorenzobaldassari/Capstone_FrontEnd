@@ -15,6 +15,19 @@ const UtenteLoggato = () => {
   const tipo = sessionStorage.getItem("tipo");
   const ID = sessionStorage.getItem("uuid");
   const likeUrl = "/posts/";
+
+  const [alert2, setAlert2] = useState(false);
+  const setAlert2Func = (bool) => {
+    setAlert2(bool);
+  };
+  const [alert4, setAlert4] = useState(false);
+  const setAlert4Func = (bool) => {
+    setAlert4(bool);
+  };
+  const [alert5, setAlert5] = useState(false);
+  const setAlert5Func = (bool) => {
+    setAlert5(bool);
+  };
   let [coverSetting, setCoverSetting] = useState(false);
   const setCoverSettingFunction = () => {
     setCoverSetting(false);
@@ -369,6 +382,8 @@ const UtenteLoggato = () => {
                                 uuidPost={posts.uuid}
                                 postid={posts.uuid}
                                 setPostIdFunction={setPostIdFunction}
+                                setAlert4Func={setAlert4Func}
+                                setAlert5Func={setAlert5Func}
                               />
                             </div>
                           </div>
@@ -380,6 +395,7 @@ const UtenteLoggato = () => {
                             modifyShowFalse={() => modifyShowFalse()}
                             post={posts}
                             getPostsFunc={getPostsFunc}
+                            setAlert2Func={setAlert2Func}
                           />
                         </div>
                       )}

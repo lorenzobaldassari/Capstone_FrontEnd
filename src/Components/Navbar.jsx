@@ -41,19 +41,21 @@ const CustomNavbar = () => {
                     <img className="circle1" src={immagine} alt="" />
                   </Link>
                 )}
-                {tipo === "utente" && (
-                  <Link to={"/utente/me"}>
-                    <img className="circle1" src={immagine} alt="" />
-                  </Link>
-                )}
-                <Button
-                  onClick={() => {
-                    sessionStorage.clear();
-                    navigate("/");
-                  }}
-                >
-                  LogOut
-                </Button>
+                <div className="d-flex justify-content-end">
+                  {tipo === "utente" && (
+                    <Link to={"/utente/me"}>
+                      <img className="circle1" src={immagine} alt="" />
+                    </Link>
+                  )}
+                  <Button
+                    onClick={() => {
+                      sessionStorage.clear();
+                      navigate("/");
+                    }}
+                  >
+                    LogOut
+                  </Button>
+                </div>
               </Nav>
             </Container>
           </Navbar>

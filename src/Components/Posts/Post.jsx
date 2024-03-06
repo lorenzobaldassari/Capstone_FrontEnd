@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../../redux/action";
-import { Button, Col, Dropdown, Row } from "react-bootstrap";
+import { Alert, Button, Col, Dropdown, Row } from "react-bootstrap";
 import CreatPostModal from "./CreatePostModal";
 import ModifyPostModal from "./ModifyPostModal";
 import { Link } from "react-router-dom";
@@ -18,6 +18,27 @@ const Post = () => {
   const postUrl = "/posts/";
   const url = "http://localhost:3010";
   let [posts, setPosts] = useState([]);
+  const [alert1, setAlert1] = useState(false);
+  const setAlert1Func = (bool) => {
+    setAlert1(bool);
+  };
+  const [alert2, setAlert2] = useState(false);
+  const setAlert2Func = (bool) => {
+    setAlert2(bool);
+  };
+  const [alert3, setAlert3] = useState(false);
+  const setAlert3Func = (bool) => {
+    setAlert1(bool);
+  };
+  const [alert4, setAlert4] = useState(false);
+  const setAlert4Func = (bool) => {
+    setAlert4(bool);
+  };
+  const [alert5, setAlert5] = useState(false);
+  const setAlert5Func = (bool) => {
+    setAlert5(bool);
+  };
+
   const getPosts = async () => {
     try {
       let response = await fetch(url + "/posts", {
@@ -28,6 +49,8 @@ const Post = () => {
       if (response.ok) {
         let date = await response.json();
         console.log(date.content);
+        console.log(date.totalElements);
+        console.log(date);
         setPosts(date.content);
       } else throw new Error();
     } catch (error) {
@@ -113,7 +136,11 @@ const Post = () => {
     })
       .then((response) => {
         if (response.ok) {
-          alert("post CANCELLATO!");
+          setAlert3(true);
+          // alert("post CANCELLATO!");
+          setTimeout(() => {
+            setAlert3(false);
+          }, 2000);
           getPosts();
         } else throw new Error();
       })
@@ -151,6 +178,31 @@ const Post = () => {
             </Button>
           </div>
         </div>
+        {alert1 && (
+          <Alert className="alert fw-bold bg-fourth position-fixed top-20 start-45 z-index-1500 w-20">
+            Post creato!
+          </Alert>
+        )}
+        {alert2 && (
+          <Alert className="alert fw-bold bg-fourth position-fixed top-20 start-45 z-index-1500 w-20">
+            Post modificato!
+          </Alert>
+        )}
+        {alert3 && (
+          <Alert className="alert fw-bold bg-fourth position-fixed top-20 start-45 z-index-1500 w-20">
+            Post cancellato!
+          </Alert>
+        )}
+        {alert4 && (
+          <Alert className="alert fw-bold bg-fourth position-fixed top-20 start-45 z-index-1500 w-20">
+            commento inviato!
+          </Alert>
+        )}
+        {alert5 && (
+          <Alert className="alert fw-bold bg-fourth position-fixed top-20 start-45 z-index-1500 w-20">
+            commento cancellato!
+          </Alert>
+        )}
         {posts.map((elem) => {
           return (
             <div key={elem.uuid} className="position-relative">
@@ -178,13 +230,13 @@ const Post = () => {
                           <button
                             className="border-0 bg-none"
                             onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you wish to delete this item?"
-                                )
-                              ) {
-                                deletePost(elem.uuid);
-                              }
+                              // if (
+                              //   window.confirm(
+                              //     "Are you sure you wish to delete this item?"
+                              //   )
+                              // ) {
+                              deletePost(elem.uuid);
+                              // }
                             }}
                           >
                             Elimina
@@ -217,13 +269,13 @@ const Post = () => {
                           <button
                             className="border-0 bg-none"
                             onClick={() => {
-                              if (
-                                window.confirm(
-                                  "Are you sure you wish to delete this item?"
-                                )
-                              ) {
-                                deletePost(elem.uuid);
-                              }
+                              // if (
+                              //   window.confirm(
+                              //     "Are you sure you wish to delete this item?"
+                              //   )
+                              // ) {
+                              deletePost(elem.uuid);
+                              // }
                             }}
                           >
                             Elimina
@@ -363,6 +415,8 @@ const Post = () => {
                           showCommenta={showCommenta}
                           setPostIdFunction={setPostIdFunction}
                           setShowCommentafunction={setShowCommentafunction}
+                          setAlert4Func={setAlert4Func}
+                          setAlert5Func={setAlert5Func}
                         />
                       </div>
                     </div>
@@ -371,11 +425,12 @@ const Post = () => {
               </Col>
 
               {modifyShow === elem.uuid && (
-                <div className="position-absolute positionModify w-90 bg-white p-5 z-index-50 border border-2 border-black shadow  ">
+                <div className="position-absolute positionModify w-60 bg-white p-5 z-index-50 border border-2 border-black shadow  ">
                   <ModifyPostModal
                     modifyShowFalse={() => modifyShowFalse()}
                     post={elem}
                     getPostsFunc={getPostsFunc}
+                    setAlert2Func={setAlert2Func}
                   />
                 </div>
               )}
@@ -383,10 +438,11 @@ const Post = () => {
           );
         })}
         {createShow === true && (
-          <div className="position-fixed w-90 bg-white p-5 z-index-50 border border-2 border-black shadow ">
+          <div className="position-fixed w-60 bg-white p-5 z-index-50 border border-2 border-black shadow ">
             <CreatPostModal
               createShowFalse={createShowFalse}
               getPostsFunc={getPostsFunc}
+              setAlert1Func={setAlert1Func}
             />
           </div>
         )}

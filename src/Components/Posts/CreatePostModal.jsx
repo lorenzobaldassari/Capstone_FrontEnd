@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 import "./posts.css";
 
-const CreatPostModal = ({ createShowFalse, getPostsFunc }) => {
+const CreatPostModal = ({ createShowFalse, getPostsFunc, setAlert1Func }) => {
   const Url = "http://localhost:3010";
   const posterl = "/posts";
   const token = sessionStorage.getItem("token");
@@ -25,7 +25,10 @@ const CreatPostModal = ({ createShowFalse, getPostsFunc }) => {
       .then((response) => {
         console.log("oggetto inviato", response);
         if (response.ok) {
-          alert("post creato!");
+          // alert("post creato!");
+          setAlert1Func(true);
+          setTimeout(() => setAlert1Func(false), 2000);
+
           getPostsFunc();
         } else throw new Error();
       })

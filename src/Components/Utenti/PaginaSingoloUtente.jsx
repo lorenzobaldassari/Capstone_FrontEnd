@@ -26,6 +26,14 @@ const PaginaSingoloUtente = () => {
   const setPostIdFunction = (par) => {
     setPostid(par);
   };
+  const [alert4, setAlert4] = useState(false);
+  const setAlert4Func = (bool) => {
+    setAlert4(bool);
+  };
+  const [alert5, setAlert5] = useState(false);
+  const setAlert5Func = (bool) => {
+    setAlert5(bool);
+  };
   let [modifyShow, setModifyShow] = useState("");
   let [createShow, setCreateShow] = useState("");
 
@@ -328,6 +336,8 @@ const PaginaSingoloUtente = () => {
                                 uuidPost={posts.uuid}
                                 postid={posts.uuid}
                                 setPostIdFunction={setPostIdFunction}
+                                setAlert4Func={setAlert4Func}
+                                setAlert5Func={setAlert5Func}
                               />
                             </div>
                           </div>

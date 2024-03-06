@@ -2,15 +2,15 @@ import { useState } from "react";
 import { Button, Card, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 
-const url = "http://localhost:3010";
-const postUrl = "/posts/";
-const token = sessionStorage.getItem("token");
-
 const ModifyPostModal = ({
   post,
   modifyShowFalse,
   getPostsFunc,
+  setAlert2Func,
 }) => {
+  const url = "http://localhost:3010";
+  const postUrl = "/posts/";
+  const token = sessionStorage.getItem("token");
   const [postPayload, setPostPayload] = useState({
     titolo: post.titolo_post,
     contenuto: post.contenuto,
@@ -29,7 +29,11 @@ const ModifyPostModal = ({
       .then((response) => {
         if (response.ok) {
           console.log(response.json());
-          alert("post MODIFICATO!");
+          // alert("post MODIFICATO!");
+          setAlert2Func(true);
+          setTimeout(() => {
+            setAlert2Func(false);
+          }, 2000);
           getPostsFunc();
         } else throw new Error();
       })
