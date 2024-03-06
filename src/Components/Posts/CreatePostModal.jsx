@@ -3,11 +3,10 @@ import { Button, Card, Form } from "react-bootstrap";
 import { BsXLg } from "react-icons/bs";
 import "./posts.css";
 
-const Url = "http://localhost:3010";
-const posterl = "/posts";
-const token = sessionStorage.getItem("token");
-
 const CreatPostModal = ({ createShowFalse, getPostsFunc }) => {
+  const Url = "http://localhost:3010";
+  const posterl = "/posts";
+  const token = sessionStorage.getItem("token");
   const [postPayload, setPostPayload] = useState({
     titolo: "",
     contenuto: "",

@@ -202,8 +202,11 @@ const PaginaLoggata = () => {
               </div>
               <div className="ms-5">
                 <p className="fs-5">{data.descrizione}</p>
-                <a href={data.link_sito}>{data.link_sito}</a>
               </div>
+              <div className="ms-5">
+                <p className="fs-5">{data.provincia},{data.citta},{data.indirizzo}</p>
+              </div>
+                <a className="ms-5" href={data.link_sito}>{data.link_sito}</a>
             </div>
           </Col>
           <Col

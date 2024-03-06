@@ -1,13 +1,14 @@
+import { Button } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const CustomNavbar = () => {
   const location = useLocation();
   const tipo = sessionStorage.getItem("tipo");
   const immagine = sessionStorage.getItem("immagine");
-
+  const navigate = useNavigate();
   return (
     <>
       {location.pathname !== "/" &&
@@ -17,7 +18,6 @@ const CustomNavbar = () => {
             bg="primary"
             className="w-100 fw-bold fs-3 position-sticky top-0 z-index-500"
             data-bs-theme="dark"
-            
           >
             <Container fluid className=" w-100">
               <Nav className=" ms-5 me-5  w-100 d-flex align-items-center justify-content-between">
@@ -46,6 +46,14 @@ const CustomNavbar = () => {
                     <img className="circle1" src={immagine} alt="" />
                   </Link>
                 )}
+                <Button
+                  onClick={() => {
+                    sessionStorage.clear();
+                    navigate("/");
+                  }}
+                >
+                  LogOut
+                </Button>
               </Nav>
             </Container>
           </Navbar>

@@ -61,12 +61,10 @@ const Post = () => {
   const modifyShowFalse = (string) => {
     setModifyShow(string);
   };
-  
 
   useEffect(() => {
     getPosts();
   }, [like]);
-  
 
   const likes = async (id) => {
     try {
@@ -297,7 +295,7 @@ const Post = () => {
                     <div className="py-1 d-flex align-items-start justify-content-start ">
                       <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
                         {/* like button */}
-                        <p className="mb-0 me-2">
+                        <p className="mb-0 me-2 width1">
                           {elem.likes_utente.length + elem.likes_pagina.length}
                         </p>
                         {tipo === "utente" &&

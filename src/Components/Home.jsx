@@ -7,18 +7,21 @@ const Home = () => {
   return (
     <>
       <Container fluid className="footerMargin">
-        <Row className="">
-          <Col xs={12} xxl={9} className="p-0 d-flex flex-column align-items-center ">
+        <Row className=" justify-content-center">
+          <Col
+            xs={12}
+            xxl={8}
+            className="p-0 d-flex flex-column align-items-center "
+          >
             <Post />
           </Col>
-          <Col xxl={3} className="d-none bg-success  d-xxl-block">
+          {/* <Col className="d-none bg-success  d-xxl-block">
             <div className="d-flex justify-content-center">
               <p>colonna 2</p>
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
-    
     </>
   );
 };

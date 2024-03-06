@@ -14,6 +14,9 @@ const CreatePaginaModal = () => {
     link_sito: "",
     email: "",
     password: "",
+    provincia:"",
+    indirizzo:"",
+    citta:""
   });
   const navigate = useNavigate();
 
@@ -82,6 +85,44 @@ const CreatePaginaModal = () => {
                     setPostPayload({
                       ...PaginaPayload,
                       descrizione: e.target.value,
+                    });
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  className="border border-2 border-primary"
+                  type="text"
+                  placeholder="provincia"
+                  onChange={(e) => {
+                    setPostPayload({
+                      ...PaginaPayload,
+                      provincia: e.target.value,
+                    });
+                  }}
+                />
+              </Form.Group>    <Form.Group className="mb-3">
+                <Form.Control
+                  className="border border-2 border-primary"
+                  type="text"
+                  placeholder="citta"
+                  onChange={(e) => {
+                    setPostPayload({
+                      ...PaginaPayload,
+                      citta: e.target.value,
+                    });
+                  }}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Control
+                  className="border border-2 border-primary"
+                  type="text"
+                  placeholder="indirizzo"
+                  onChange={(e) => {
+                    setPostPayload({
+                      ...PaginaPayload,
+                      indirizzo: e.target.value,
                     });
                   }}
                 />
