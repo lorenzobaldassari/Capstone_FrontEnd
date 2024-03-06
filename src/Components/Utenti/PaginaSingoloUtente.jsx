@@ -60,7 +60,7 @@ const PaginaSingoloUtente = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        setPosts(date);
+        setPosts(date.content);
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -96,6 +96,7 @@ const PaginaSingoloUtente = () => {
       });
       if (response.ok) {
         console.log("like messo");
+        getPosts();
       } else {
         throw new Error();
       }
@@ -114,6 +115,7 @@ const PaginaSingoloUtente = () => {
       });
       if (response.ok) {
         console.log("like tolto");
+        getPosts();
       } else {
         throw new Error();
       }
@@ -253,8 +255,8 @@ const PaginaSingoloUtente = () => {
                           <Card.Title>{posts.titolo_post}</Card.Title>
                           <Card.Text>{posts.contenuto}</Card.Text>
                           <div id="customBr1" className="my-0"></div>
-                          <div className="py-1 d-flex align-items-center justify-content-start ">
-                            <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-start me-5">
+                          <div className="py-1 d-flex align-items-start justify-content-start ">
+                            <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
                               {/* like button */}
                               <p className="mb-0 me-2">
                                 {posts.likes_utente.length +

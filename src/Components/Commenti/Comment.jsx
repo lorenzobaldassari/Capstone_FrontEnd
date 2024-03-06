@@ -4,6 +4,8 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
+
+
 const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
   const url = "http://localhost:3010";
   const commentUrl = "/commenti/posts/";
@@ -12,6 +14,7 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
   const ID = sessionStorage.getItem("uuid");
   let [count, setCount] = useState(0);
   let [numberOfComments, setNumberOfComments] = useState();
+  
   let setCountFunction = () => {
     setCount(count + 1);
   };
@@ -19,20 +22,26 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
   const [payload, setPayload] = useState({
     contenuto: "",
   });
+  let pageSize = 3;
+
   const getComments = async () => {
     try {
-      let response = await fetch(url + commentUrl + uuidPost, {
-        headers: {
-          authorization: "bearer " + token,
-        },
-      });
+      let response = await fetch(
+        url + commentUrl + uuidPost + "?size=" + pageSize,
+        {
+          headers: {
+            authorization: "bearer " + token,
+          },
+        }
+      );
       if (response.ok) {
         let date = await response.json();
-        setNumberOfComments(date.length);
-        setData(date);
+        setNumberOfComments(date.content.length);
+        // console.log(date.content.length);
+        setData(date.content);
       } else throw new Error();
     } catch (error) {
-      alert("errore nella fetch di commento qui " + error);
+      // alert("errore nella fetch di commento qui " + error);
     }
   };
 
@@ -48,6 +57,7 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
       });
       if (response.ok) {
         alert("commento inviato");
+        getComments()
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -74,7 +84,7 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
 
   useEffect(() => {
     getComments();
-  }, [count]);
+  }, [count, pageSize]);
 
   return (
     <div>
@@ -194,6 +204,28 @@ const Commenti = ({ uuidPost, postid, setPostIdFunction }) => {
               </Col>
             );
           })}
+          {pageSize === data.length && data.length !== 0&& (
+            <Button
+              className="bg-none border-0 text-primary"
+              onClick={() => {
+                pageSize = pageSize + 3;
+                getComments();
+              }}
+            >
+              mostra altro
+            </Button>
+          )}
+          {pageSize < data.length && (
+            <Button
+              className="bg-none border-0 text-primary"
+              onClick={() => {
+                pageSize = 3;
+                getComments();
+              }}
+            >
+              mostra meno
+            </Button>
+          )}
         </Row>
       </Container>
     </div>

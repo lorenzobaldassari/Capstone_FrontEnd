@@ -84,3 +84,7 @@
 .h-80vh {
   height: 80vh;
 }
+.borderSpecial:focus {
+  outline: none !important;
+  outline-offset: none !important;
+}

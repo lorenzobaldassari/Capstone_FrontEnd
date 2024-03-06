@@ -76,7 +76,7 @@ const UtenteLoggato = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        setPosts(date);
+        setPosts(date.content);
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -112,6 +112,7 @@ const UtenteLoggato = () => {
       });
       if (response.ok) {
         console.log("like messo");
+        getPosts();
       } else {
         throw new Error();
       }
@@ -130,6 +131,7 @@ const UtenteLoggato = () => {
       });
       if (response.ok) {
         console.log("like tolto");
+        getPosts();
       } else {
         throw new Error();
       }
@@ -141,7 +143,7 @@ const UtenteLoggato = () => {
   useEffect(() => {
     getUtente();
     getPosts();
-  }, [like]);
+  }, []);
 
   const getPostsFunc = () => {
     getPosts();
@@ -159,7 +161,7 @@ const UtenteLoggato = () => {
           </div>
         )}
         {coverSetting && (
-          <div className="position-absolute imageCreatePosition z-index-1500">
+          <div className="position-absolute imageCreatePosition2 z-index-1500">
             <ImageCoverModal
               setCoverSettingFunction={setCoverSettingFunction}
               getPostsFunction={getPostsFunction}
@@ -208,9 +210,7 @@ const UtenteLoggato = () => {
                 </div>
                 <div className="me-5">
                   <Link to={"/creazionePagina"}>
-                    <Button >
-                      crea pagina
-                    </Button>
+                    <Button>crea pagina</Button>
                   </Link>
                 </div>
               </div>

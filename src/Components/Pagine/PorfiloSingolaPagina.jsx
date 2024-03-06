@@ -58,7 +58,7 @@ const ProfiloSingolaPagina = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        setPosts(date);
+        setPosts(date.content);
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -95,6 +95,7 @@ const ProfiloSingolaPagina = () => {
       });
       if (response.ok) {
         console.log("like messo");
+        getPosts();
       } else {
         throw new Error();
       }
@@ -113,6 +114,7 @@ const ProfiloSingolaPagina = () => {
       });
       if (response.ok) {
         console.log("like tolto");
+        getPosts();
       } else {
         throw new Error();
       }

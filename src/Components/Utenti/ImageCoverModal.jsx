@@ -52,7 +52,7 @@ const ImageCoverModal = ({ setCoverSettingFunction, getPostsFunction }) => {
   };
 
   return (
-    <div className="shadow border border-2 border-primary  bg-third p-5 position-relative">
+    <div className="shadow rounded-5 border border-2 border-primary  bg-third p-5 position-relative">
       <Form
         onSubmit={(e) => {
           e.preventDefault();
@@ -70,18 +70,20 @@ const ImageCoverModal = ({ setCoverSettingFunction, getPostsFunction }) => {
             }}
             type="file"
           />
+        </div>
+        <div className="d-flex justify-content-around">
+          <Button type="submit" className="bg-primary rounded-4">
+            cambia immagine
+          </Button>
           <Button
-            className="d-flex align-items-start position-absolute top-0 end-0   border-0 bg-none text-primary fs-4"
             onClick={() => {
               setCoverSettingFunction();
             }}
+            className="bg-primary rounded-4"
           >
-            <TiDeleteOutline />
+            chiudi
           </Button>
         </div>
-        <Button type="submit" className="bg-primary rounded-4">
-          cambia immagine
-        </Button>
       </Form>
     </div>
   );

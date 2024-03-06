@@ -58,7 +58,7 @@ const Login = () => {
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail1">
               <Form.Control
-                className="border border-2 border-primary"
+                className="borderSpecial border border-2 border-primary"
                 type="Email"
                 required
                 placeholder="inserisci la tua email"
@@ -75,7 +75,7 @@ const Login = () => {
           <div className="d-flex justify-content-center">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
-                className="border border-2 border-primary"
+                className="borderSpecial border border-2 border-primary"
                 type="password"
                 required
                 placeholder="password"

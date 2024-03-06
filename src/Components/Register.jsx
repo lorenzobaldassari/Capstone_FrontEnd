@@ -45,7 +45,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-primary"
+              className=" borderSpecial border border-2 border-primary"
               type="text"
               placeholder="nome"
               required
@@ -61,7 +61,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-primary"
+              className=" borderSpecial border border-2 border-primary"
               type="text"
               placeholder="cognome"
               required
@@ -77,7 +77,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-primary"
+              className=" borderSpecial border border-2 border-primary"
               type="email"
               placeholder="email"
               required
@@ -93,7 +93,7 @@ const Register = () => {
         <div>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
-              className="border border-2 border-primary"
+              className=" borderSpecial border border-2 border-primary"
               type="password"
               placeholder="password"
               required

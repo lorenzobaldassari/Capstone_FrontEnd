@@ -17,6 +17,7 @@ const Post = () => {
   const tipo = sessionStorage.getItem("tipo");
   const postUrl = "/posts/";
   const url = "http://localhost:3010";
+  let [posts, setPosts] = useState([]);
   const getPosts = async () => {
     try {
       let response = await fetch(url + "/posts", {
@@ -26,7 +27,8 @@ const Post = () => {
       });
       if (response.ok) {
         let date = await response.json();
-        setPosts(date);
+        console.log(date.content);
+        setPosts(date.content);
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -59,13 +61,12 @@ const Post = () => {
   const modifyShowFalse = (string) => {
     setModifyShow(string);
   };
-  let [posts, setPosts] = useState([]);
-
-
+  
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [like]);
+  
 
   const likes = async (id) => {
     try {
@@ -115,7 +116,7 @@ const Post = () => {
       .then((response) => {
         if (response.ok) {
           alert("post CANCELLATO!");
-          getPosts()
+          getPosts();
         } else throw new Error();
       })
       .catch((error) => {
@@ -124,9 +125,9 @@ const Post = () => {
       });
   };
 
-  const getPostsFunc=()=>{
-    getPosts()
-  }
+  const getPostsFunc = () => {
+    getPosts();
+  };
 
   return (
     <>

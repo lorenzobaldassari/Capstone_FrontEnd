@@ -73,6 +73,17 @@
 }
 
 .imageCreatePosition {
-  top: 12%;
-  left: 50%;
+  top: 30%;
+  left: 30%;
+}
+.imageCreatePosition2 {
+  top: 30%;
+  left: 60%;
+}
+.height-100 {
+  min-height: 80vh !important;
+}
+.borderSpecial:focus {
+  /* border: 2px solid violet !important; */
+  box-shadow: 0px 0px 9px 1px #7a1c7ab3;
 }

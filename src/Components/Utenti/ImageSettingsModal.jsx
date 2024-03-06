@@ -65,23 +65,26 @@ const ImageSettngsModal = ({ setImageSettingFunction, getPostsFunction }) => {
       >
         <div className="d-flex align-items-start mb-4">
           <Form.Control
+            className=""
             onChange={(e) => {
               setImage(e.target.files[0]);
             }}
             type="file"
           />
+        </div>
+        <div className="d-flex justify-content-around">
+          <Button type="submit" className="bg-primary rounded-4">
+            cambia immagine
+          </Button>
           <Button
-            className="d-flex align-items-start position-absolute top-0 end-0   border-0 bg-none text-primary fs-4"
             onClick={() => {
               setImageSettingFunction();
             }}
+            className="bg-primary rounded-4"
           >
-            <TiDeleteOutline />
+            chiudi
           </Button>
         </div>
-        <Button type="submit" className="bg-primary rounded-4">
-          cambia immagine
-        </Button>
       </Form>
     </div>
   );
