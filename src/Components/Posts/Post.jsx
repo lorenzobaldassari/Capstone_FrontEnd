@@ -299,7 +299,7 @@ const Post = () => {
                       <div>
                         <h6 className="mb-0 ms-3">
                           <Link
-                            className="text-black text-decoration-none fw-bold display-6"
+                            className="w-90 text-black text-decoration-none fw-bold display-6"
                             to={"/singoloUtente/" + elem.utentePost.utente_uuid}
                           >
                             {elem.utentePost.nome} {elem.utentePost.cognome}
@@ -328,7 +328,7 @@ const Post = () => {
                           className="text-decoration-none"
                           to={"/singolaPagina/" + elem.paginaPost.id}
                         >
-                          <h6 className="display-6 fw-bold mb-0 ms-3 text-black">
+                          <h6 className="display-6 fw-bold w-90 mb-0 ms-3 text-black">
                             {elem.paginaPost.titolo}
                           </h6>
                         </Link>
@@ -347,7 +347,7 @@ const Post = () => {
                     <div className="py-1 d-flex align-items-start justify-content-start ">
                       <Button className="transparent border-0 text-dark mb-0 ms-2 fs-5 d-flex align-items-center me-5">
                         {/* like button */}
-                        <p className="mb-0 me-2 width1">
+                        <p className="mb-0  mt-1 fs-6 me-2 width1">
                           {elem.likes_utente.length + elem.likes_pagina.length}
                         </p>
                         {tipo === "utente" &&
@@ -360,6 +360,7 @@ const Post = () => {
                                 (lambda) => lambda.utente_uuid === ID
                               ).length === 0)) && (
                             <BiLike
+                              className="fs-6 mt-1"
                               onClick={() => {
                                 likes(elem.uuid);
                                 setLike(like + 1);
@@ -376,6 +377,7 @@ const Post = () => {
                                 (lambda) => lambda.id === ID
                               ).length === 0)) && (
                             <BiLike
+                              className="fs-6 mt-1"
                               onClick={() => {
                                 likes(elem.uuid);
                                 setLike(like + 1);
@@ -400,6 +402,7 @@ const Post = () => {
                               (lambda) => lambda.id === ID
                             ).length > 0)) && (
                           <BiSolidLike
+                            className="fs-6 mt-1"
                             onClick={() => {
                               dislikes(elem.uuid);
                               setLike(like + 1);

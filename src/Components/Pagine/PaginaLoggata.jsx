@@ -183,9 +183,10 @@ const PaginaLoggata = () => {
             key={data.id}
             className="bg-white px-0 mb-4 rounded-3"
           >
-            <div className="shadowBlack pb-5 d-flex flex-column align-items-start">
-              <div className="w-100 d-flex justify-content-center w-100">
+            <div className="shadowBlack pb-5 d-flex flex-column align-items-center">
+              <div className="w-50 d-flex justify-content-center w-100">
                 <img
+                  className="w-100"
                   onClick={() => {
                     setCoverSetting(true);
                   }}

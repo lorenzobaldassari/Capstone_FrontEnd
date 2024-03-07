@@ -41,7 +41,7 @@ const ImageSettngsModal = ({ setImageSettingFunction, getPostsFunction }) => {
         // setImageSettingFunction();
         getPostsFunction();
         setImage(false);
-        refreshPage();
+        // refreshPage();
       } else {
         throw new Error();
       }

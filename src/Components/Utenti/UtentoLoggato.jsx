@@ -188,15 +188,16 @@ const UtenteLoggato = () => {
             key={data.id}
             className="bg-white px-0 mb-4 rounded-3"
           >
-            <div className="shadowBlack pb-5 d-flex flex-column align-items-start">
-              <div className="d-flex justify-content-center w-100">
+            <div className="shadowBlack pb-5 d-flex flex-column align-items-center ">
+              <div className="d-flex justify-content-center w-50 max-height">
                 <img
+                  className="w-100"
                   onClick={() => {
                     setCoverSetting(true);
                   }}
                   src={data.immagine_di_copertina}
                   // className="w-100"
-                  height={300}
+                  // height={800}
                   alt="immagine di copertina"
                 />
               </div>

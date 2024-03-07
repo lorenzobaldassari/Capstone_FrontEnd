@@ -61,7 +61,6 @@ const ModifyPostModal = ({
                   className=" input border border-2 border-white"
                   type="text"
                   placeholder="titolo"
-                  required
                   value={postPayload.titolo}
                   onChange={(e) => {
                     setPostPayload({

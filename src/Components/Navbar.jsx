@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -22,7 +22,7 @@ const CustomNavbar = () => {
             <Container fluid className=" w-100">
               <Nav className=" ms-5 me-5  w-100 d-flex align-items-center justify-content-between">
                 <Link className="text-decoration-none text-white" to={"/home"}>
-                  SocialeName
+                  CLassNexus
                 </Link>
                 <Link
                   className="text-decoration-none text-white"
@@ -36,25 +36,79 @@ const CustomNavbar = () => {
                 >
                   Scuole
                 </Link>
-                {tipo === "pagina" && (
-                  <Link to={"/pagina/me"}>
-                    <img className="circle1" src={immagine} alt="" />
-                  </Link>
-                )}
+                <div className="d-flex justify-content-end">
+                  {tipo === "pagina" && (
+                    <div className="position-relative">
+                      {/* <Link to={"/utente/me"}> */}
+                      <img className="circle1 me-5" src={immagine} alt="" />
+                      {/* </Link> */}
+                      <Dropdown className="text-third position-absolute top-50 ">
+                        <Dropdown.Toggle
+                          className="text-third bg-none border-0 w-custom bg-primary"
+                          id="dropdown-basic"
+                        ></Dropdown.Toggle>
+
+                        <Dropdown.Menu className="bg-primary">
+                          <Dropdown.Item href="#/action-1">
+                            <Link
+                              className="text-decoration-none text-white fw-bold"
+                              to={"/pagina/me"}
+                            >
+                              Profilo
+                            </Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            className="fw-bold"
+                            href="#/action-2"
+                            onClick={() => {
+                              sessionStorage.clear();
+                              navigate("/");
+                            }}
+                          >
+                            LogOut
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </div>
+                  )}
+                </div>
                 <div className="d-flex justify-content-end">
                   {tipo === "utente" && (
-                    <Link to={"/utente/me"}>
-                      <img className="circle1" src={immagine} alt="" />
-                    </Link>
+                    <div className="position-relative">
+                      {/* <Link to={"/utente/me"}> */}
+                      <img className="circle1 me-5" src={immagine} alt="" />
+                      {/* </Link> */}
+                      <Dropdown className="text-third position-absolute top-50 ">
+                        <Dropdown.Toggle
+                          className="opacity-0 text-third bg-none border-0 w-custom bg-primary"
+                          id="dropdown-basic"
+                        >
+                          dqfaefaef
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu className="bg-primary">
+                          <Dropdown.Item href="#/action-1">
+                            <Link
+                              className="text-decoration-none text-white fw-bold"
+                              to={"/utente/me"}
+                            >
+                              Profilo
+                            </Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            className="fw-bold"
+                            href="#/action-2"
+                            onClick={() => {
+                              sessionStorage.clear();
+                              navigate("/");
+                            }}
+                          >
+                            LogOut
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </div>
                   )}
-                  <Button
-                    onClick={() => {
-                      sessionStorage.clear();
-                      navigate("/");
-                    }}
-                  >
-                    LogOut
-                  </Button>
                 </div>
               </Nav>
             </Container>

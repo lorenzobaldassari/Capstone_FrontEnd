@@ -56,7 +56,6 @@ const CreatPostModal = ({ createShowFalse, getPostsFunc, setAlert1Func }) => {
                   className=" input border border-2 border-white"
                   type="text"
                   placeholder="titolo"
-                  required
                   onChange={(e) => {
                     setPostPayload({
                       ...postPayload,

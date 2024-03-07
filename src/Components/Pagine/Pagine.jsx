@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SingolaPAgina from "./SingolaPagina";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Dropdown, Form, Row } from "react-bootstrap";
 import { TbMathGreater } from "react-icons/tb";
 import { TbMathLower } from "react-icons/tb";
 
@@ -13,6 +13,7 @@ const Pagine = () => {
   const [page, setPgae] = useState(0);
   const [titolo, setTitolo] = useState("");
   const [provincia, setProvincia] = useState("");
+  const [search, setSearch] = useState(false);
 
   const getPagine = async () => {
     try {
@@ -53,27 +54,53 @@ const Pagine = () => {
         <div className="d-flex flex-column justify-content-start w-100">
           <div className="d-flex justify-content-center my-2 w-100">
             <Row className="w-100 ">
-              <Col xs={3} className="offset-3">
-                <Form className="w-50 ms-5">
-                  <Form.Control
-                    className="borderSpecial border-2  border border-primary  my-3"
-                    onChange={(e) => {
-                      setTitolo(e.target.value);
-                    }}
-                    placeholder="Cerca"
-                  />
-                </Form>
-              </Col>
-              <Col xs={3}>
-                <Form className="w-50">
-                  <Form.Control
-                    className="borderSpecial border-2  border border-primary  my-3"
-                    onChange={(e) => {
-                      setProvincia(e.target.value);
-                    }}
-                    placeholder="Cerca"
-                  />
-                </Form>
+              <Col xs={6} className="offset-3 d-flex align-items-center">
+                {!search && (
+                  <Form className=" ms-5">
+                    <Form.Control
+                      className="borderSpecial border-2  border border-primary  my-3"
+                      onChange={(e) => {
+                        setTitolo(e.target.value);
+                      }}
+                      placeholder="nome"
+                    />
+                  </Form>
+                )}
+                {search && (
+                  <Form className="ms-5">
+                    <Form.Control
+                      className="borderSpecial border-2  border border-primary  my-3"
+                      onChange={(e) => {
+                        setProvincia(e.target.value);
+                      }}
+                      placeholder="citta"
+                    />
+                  </Form>
+                )}
+                <Dropdown>
+                  <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                    cerca per
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setSearch(false);
+                      }}
+                      href="#/action-1"
+                    >
+                      nome
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setSearch(true);
+                      }}
+                      href="#/action-2"
+                    >
+                      citta
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Col>
             </Row>
           </div>
@@ -94,10 +121,11 @@ const Pagine = () => {
             {page}
             {/* {page1} */}
           </p>
+
           <TbMathGreater
             className="text-primary"
             onClick={() => {
-              if (data.length > 14) {
+              if (data.length > 11) {
                 setPgae(page + 1);
               } else {
                 console.log("page e gia al massimo");

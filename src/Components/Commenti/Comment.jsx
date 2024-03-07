@@ -107,7 +107,7 @@ const Commenti = ({
 
   return (
     <div>
-      <p className="mb-0 mt-2">{pagina} commenti</p>
+      <p className="mb-0 fs-6 mt-custom">{pagina} commenti</p>
       <Container className="  mt-3 w-100">
         <Row className=" g-2 justify-content-center mb-4 w-100">
           <div className="d-flex align-items-start mb-4 w-100">

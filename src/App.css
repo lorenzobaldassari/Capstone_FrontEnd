@@ -88,3 +88,6 @@
   outline: none !important;
   outline-offset: none !important;
 }
+.w-custom {
+  width: 30px !important;
+}

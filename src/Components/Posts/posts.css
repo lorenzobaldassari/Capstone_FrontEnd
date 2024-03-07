@@ -96,3 +96,13 @@
   opacity: 1;
   transition: all 1000ms linear 2 s;
 } */
+
+.max-height {
+  max-height: 500px !important;
+}
+.max-width {
+  width: 50% !important;
+}
+.mt-custom {
+  margin-top: 10px;
+}

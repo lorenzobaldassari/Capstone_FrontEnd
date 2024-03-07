@@ -41,7 +41,7 @@ const ImageCoverModal = ({ setCoverSettingFunction, getPostsFunction }) => {
         // setImageSettingFunction();
         getPostsFunction();
         setImage(false);
-        refreshPage();
+        // refreshPage();
       } else {
         throw new Error();
       }

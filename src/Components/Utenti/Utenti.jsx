@@ -12,6 +12,7 @@ const Utenti = () => {
   const [data, setData] = useState([]);
   const [page, setPgae] = useState(0);
   const [nome, setNome] = useState("");
+  const [size, setSize] = useState();
   const getUtenti = async () => {
     try {
       let response = await fetch(
@@ -26,6 +27,8 @@ const Utenti = () => {
       if (response.ok) {
         let date = await response.json();
         setData(date.content);
+        setSize(data.totalElements);
+        console.log(date.totalElements);
       } else throw new Error();
     } catch (error) {
       alert("errore nella fetch di posts " + error);
@@ -34,7 +37,7 @@ const Utenti = () => {
 
   useEffect(() => {
     getUtenti();
-  }, [page, nome]);
+  }, [page, nome,data]);
 
   return (
     <>
@@ -46,9 +49,10 @@ const Utenti = () => {
           <div className="d-flex justify-content-center my-2">
             <Form className="w-25">
               <Form.Control
-                className="borderSpecial border-2  border border-primary  my-3"
+                className="borderSpecial border-2  border border-primary  my-1"
                 onChange={(e) => {
                   setNome(e.target.value);
+                  getUtenti();
                 }}
                 placeholder="Cerca"
               />
@@ -74,7 +78,7 @@ const Utenti = () => {
           <TbMathGreater
             className="text-primary"
             onClick={() => {
-              if (data.length > 14) {
+              if (data.length > 11) {
                 setPgae(page + 1);
               } else {
                 console.log("page e gia al massimo");
